@@ -35,7 +35,9 @@ enum Commands
     Eqs,
     Lens,
     Trns,
-    Revs
+    Revs,
+    Get,
+    Gets
 };
 
 struct Token
@@ -185,6 +187,10 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Trns, std::string()});
     else if (collectedToken == "revs")
         tokens.push_back(Token{line, Commands::Revs, std::string()});
+    else if (collectedToken == "get")
+        tokens.push_back(Token{line, Commands::Get, std::string()});
+    else if (collectedToken == "gets")
+        tokens.push_back(Token{line, Commands::Gets, std::string()});
     else if (collectedToken == "+")
         tokens.push_back(Token{line, Commands::Add, std::string()});
     else if (collectedToken == "++")

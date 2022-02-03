@@ -1,7 +1,18 @@
 in main
-    "Hello, World!" revs trns
+    "Hello, What is Your Name?\nEnter Here: " puts
+    "Good to see you, "
+    gets swaps puts dups puts
+    '! 10 putc putc
 
-    while
-        putc
+    "Hello, What is Your Age? " swaps ++ puts
+    ": " puts
+
+    get
+    18 >= if
+        "So you can drink!" puts
+    else
+        "You are a kid. You can't drink!" puts
     end
+
+    0 ret
 end

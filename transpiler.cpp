@@ -108,11 +108,17 @@ void Transpiler::run()
         case Commands::Revs:
             if (std::find(variables.begin(), variables.end(), token.value) == variables.end())
                 includes.push_back("algorithm");
-                
+
             source += "_string_temp_one=_string_stack.top();_string_stack.pop();std::reverse(_string_temp_one.begin(),_string_temp_one.end());_string_stack.push(_string_temp_one);";
             break;
         case Commands::Trns:
             source += "_string_temp_one=_string_stack.top();_string_stack.pop();_stack.push(0);for(int _i=0;_i<_string_temp_one.length();_i++){_stack.push((int)_string_temp_one[_i]);};";
+            break;
+        case Commands::Get:
+            source += "std::cin>>_temp_one;_stack.push(_temp_one);";
+            break;
+        case Commands::Gets:
+            source += "std::cin>>_string_temp_one;_string_stack.push(_string_temp_one);";
             break;
         case Commands::Unknown:
             if (std::find(functions.begin(), functions.end(), token.value) != functions.end())
