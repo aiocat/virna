@@ -1,3 +1,7 @@
 in main
-    5 10 swap put put
+    "Hello, World!" revs trns
+
+    while
+        putc
+    end
 end

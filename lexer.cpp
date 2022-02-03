@@ -5,6 +5,8 @@
 enum Commands
 {
     Number,
+    String,
+    Adds,
     Add,
     Sub,
     Dimo,
@@ -16,6 +18,8 @@ enum Commands
     Set,
     Let,
     Put,
+    Putc,
+    Puts,
     Compare,
     If,
     Else,
@@ -23,7 +27,15 @@ enum Commands
     Break,
     Skip,
     Dup,
-    Swap
+    Dups,
+    Swap,
+    Swaps,
+    Pop,
+    Pops,
+    Eqs,
+    Lens,
+    Trns,
+    Revs
 };
 
 struct Token
@@ -36,9 +48,10 @@ struct Token
 class Lexer
 {
 public:
+    int line;
+    bool collectingString;
     std::string raw;
     std::string collectedToken;
-    int line;
     std::vector<Token> tokens;
 
     void run();
@@ -47,40 +60,52 @@ public:
 
 void Lexer::run()
 {
+    collectingString = false;
+
     for (int index = 0; index < raw.length(); index++)
     {
         char character = raw[index];
 
-        switch (character)
+        if (!collectingString)
         {
-        case '\r':
-            break;
-        case '\n':
-            determine();
-            line++;
-            break;
-        case '+':
-            tokens.push_back(Token{
-                line, Commands::Add, std::string()});
-            break;
-        case '-':
-            tokens.push_back(Token{
-                line, Commands::Sub, std::string()});
-            break;
-        case '*':
-            tokens.push_back(Token{
-                line, Commands::Mul, std::string()});
-            break;
-        case ' ':
-            determine();
-            break;
-        default:
-            collectedToken += character;
-            break;
-        }
+            switch (character)
+            {
+            case '\r':
+                break;
+            case '\n':
+                determine();
+                line++;
+                break;
+            case '-':
+                tokens.push_back(Token{
+                    line, Commands::Sub, std::string()});
+                break;
+            case '*':
+                tokens.push_back(Token{
+                    line, Commands::Mul, std::string()});
+                break;
+            case ' ':
+                determine();
+                break;
+            case '"':
+                collectingString = true;
+                break;
+            default:
+                collectedToken += character;
+                break;
+            }
 
-        if (index + 1 == raw.length())
-            determine();
+            if (index + 1 == raw.length())
+                determine();
+        } else {
+            if (character == '"' && raw[index - 1] != '\\') {
+                tokens.push_back(Token{line, Commands::String, collectedToken});
+                collectedToken = "";
+                collectingString = false;
+            } else {
+                collectedToken += character;
+            }
+        }
     }
 };
 
@@ -112,6 +137,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Let, std::string()});
     else if (collectedToken == "put")
         tokens.push_back(Token{line, Commands::Put, std::string()});
+    else if (collectedToken == "puts")
+        tokens.push_back(Token{line, Commands::Puts, std::string()});
     else if (collectedToken == "if")
         tokens.push_back(Token{line, Commands::If, std::string()});
     else if (collectedToken == "else")
@@ -124,6 +151,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Skip, std::string()});
     else if (collectedToken == "dup")
         tokens.push_back(Token{line, Commands::Dup, std::string()});
+    else if (collectedToken == "dups")
+        tokens.push_back(Token{line, Commands::Dups, std::string()});
     else if (collectedToken == "=")
         tokens.push_back(Token{line, Commands::Compare, "=="});
     else if (collectedToken == "!")
@@ -140,10 +169,32 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Dimo, std::string()});
     else if (collectedToken == "swap")
         tokens.push_back(Token{line, Commands::Swap, std::string()});
+    else if (collectedToken == "pop")
+        tokens.push_back(Token{line, Commands::Pop, std::string()});
+    else if (collectedToken == "swaps")
+        tokens.push_back(Token{line, Commands::Swaps, std::string()});
+    else if (collectedToken == "pops")
+        tokens.push_back(Token{line, Commands::Pops, std::string()});
+    else if (collectedToken == "eqs")
+        tokens.push_back(Token{line, Commands::Eqs, std::string()});
+    else if (collectedToken == "putc")
+        tokens.push_back(Token{line, Commands::Putc, std::string()});
+    else if (collectedToken == "lens")
+        tokens.push_back(Token{line, Commands::Lens, std::string()});
+    else if (collectedToken == "trns")
+        tokens.push_back(Token{line, Commands::Trns, std::string()});
+    else if (collectedToken == "revs")
+        tokens.push_back(Token{line, Commands::Revs, std::string()});
+    else if (collectedToken == "+")
+        tokens.push_back(Token{line, Commands::Add, std::string()});
+    else if (collectedToken == "++")
+        tokens.push_back(Token{line, Commands::Adds, std::string()});
     else
     {
         if (isNumber(collectedToken))
             tokens.push_back(Token{line, Commands::Number, collectedToken});
+        else if (collectedToken.length() == 2 && collectedToken[0] == '\'')
+            tokens.push_back(Token{line, Commands::Number, std::to_string((int)collectedToken[1])});
         else
             tokens.push_back(Token{line, Commands::Unknown, collectedToken});
     }
