@@ -36,8 +36,8 @@ void Transpiler::run()
         case Commands::Sub:
             source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two-_temp_one);";
             break;
-        case Commands::Div:
-            source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two/_temp_one);";
+        case Commands::Dimo:
+            source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push((int)_temp_two/_temp_one);_stack.push(_temp_two%%_temp_one);";
             break;
         case Commands::Mul:
             source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two*_temp_one);";
@@ -48,7 +48,7 @@ void Transpiler::run()
         case Commands::End:
             source += "};";
             break;
-        case Commands::Dump:
+        case Commands::Put:
             source += "_temp_one=_stack.top();_stack.pop();std::cout<<_temp_one;";
             break;
         case Commands::Compare:
@@ -56,6 +56,21 @@ void Transpiler::run()
             break;
         case Commands::If:
             source += "if(_stack.top()==1){_stack.pop();";
+            break;
+        case Commands::While:
+            source += "while(_stack.top()!=0){";
+            break;
+        case Commands::Break:
+            source += "break;";
+            break;
+        case Commands::Skip:
+            source += "continue;";
+            break;
+        case Commands::Dup:
+            source += "_stack.push(_stack.top());";
+            break;
+        case Commands::Swap:
+            source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_one);_stack.push(_temp_two);";
             break;
         case Commands::Else:
             source += "}else{";

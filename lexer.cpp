@@ -7,7 +7,7 @@ enum Commands
     Number,
     Add,
     Sub,
-    Div,
+    Dimo,
     Mul,
     Ret,
     Unknown,
@@ -15,10 +15,15 @@ enum Commands
     End,
     Set,
     Let,
-    Dump,
+    Put,
     Compare,
     If,
-    Else
+    Else,
+    While,
+    Break,
+    Skip,
+    Dup,
+    Swap
 };
 
 struct Token
@@ -61,10 +66,6 @@ void Lexer::run()
         case '-':
             tokens.push_back(Token{
                 line, Commands::Sub, std::string()});
-            break;
-        case '/':
-            tokens.push_back(Token{
-                line, Commands::Div, std::string()});
             break;
         case '*':
             tokens.push_back(Token{
@@ -109,12 +110,20 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Set, std::string()});
     else if (collectedToken == "let")
         tokens.push_back(Token{line, Commands::Let, std::string()});
-    else if (collectedToken == "dump")
-        tokens.push_back(Token{line, Commands::Dump, std::string()});
+    else if (collectedToken == "put")
+        tokens.push_back(Token{line, Commands::Put, std::string()});
     else if (collectedToken == "if")
         tokens.push_back(Token{line, Commands::If, std::string()});
     else if (collectedToken == "else")
         tokens.push_back(Token{line, Commands::Else, std::string()});
+    else if (collectedToken == "while")
+        tokens.push_back(Token{line, Commands::While, std::string()});
+    else if (collectedToken == "break")
+        tokens.push_back(Token{line, Commands::Break, std::string()});
+    else if (collectedToken == "skip")
+        tokens.push_back(Token{line, Commands::Skip, std::string()});
+    else if (collectedToken == "dup")
+        tokens.push_back(Token{line, Commands::Dup, std::string()});
     else if (collectedToken == "=")
         tokens.push_back(Token{line, Commands::Compare, "=="});
     else if (collectedToken == "!")
@@ -127,6 +136,10 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Compare, ">="});
     else if (collectedToken == "<=")
         tokens.push_back(Token{line, Commands::Compare, "<="});
+    else if (collectedToken == "dimo")
+        tokens.push_back(Token{line, Commands::Dimo, std::string()});
+    else if (collectedToken == "swap")
+        tokens.push_back(Token{line, Commands::Swap, std::string()});
     else
     {
         if (isNumber(collectedToken))
