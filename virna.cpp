@@ -14,7 +14,7 @@ int main(int argc, char **argv)
     std::string fileName = argv[1];
     std::string fileContent;
 
-    std::ifstream textFile(fileName);
+    std::ifstream textFile(fileName+".vi");
 
     if (!textFile)
     {
@@ -27,6 +27,7 @@ int main(int argc, char **argv)
     textFile.seekg(0, std::ios::beg);
 
     fileContent.assign((std::istreambuf_iterator<char>(textFile)), std::istreambuf_iterator<char>());
+    textFile.close();
 
     Lexer lexer;
     lexer.line = 1;
@@ -41,5 +42,7 @@ int main(int argc, char **argv)
 
     transpiler.run();
 
-    std::cout << transpiler.source;
+    std::ofstream sourceOutput(fileName+".cpp");
+    sourceOutput << transpiler.source << std::endl;
+    sourceOutput.close();
 }
