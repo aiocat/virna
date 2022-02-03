@@ -1,4 +1,11 @@
 in main
-    50 10 =
-    dump
+    50 10 > if
+        69
+        dump
+    else
+        50 100 *
+        dump
+    end
+
+    0 ret
 end
