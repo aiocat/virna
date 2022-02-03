@@ -9,7 +9,8 @@ public:
     std::string source;
     std::vector<std::string> includes;
     std::vector<std::string> functions;
-    std::vector<std::string> variables;
+    std::vector<std::string> int_variables;
+    std::vector<std::string> str_variables;
 
     void run();
 };
@@ -106,7 +107,7 @@ void Transpiler::run()
             source += "_string_temp_one=_string_stack.top();_string_stack.pop();_stack.push(_string_temp_one.length());";
             break;
         case Commands::Revs:
-            if (std::find(variables.begin(), variables.end(), token.value) == variables.end())
+            if (std::find(int_variables.begin(), int_variables.end(), token.value) == int_variables.end())
                 includes.push_back("algorithm");
 
             source += "_string_temp_one=_string_stack.top();_string_stack.pop();std::reverse(_string_temp_one.begin(),_string_temp_one.end());_string_stack.push(_string_temp_one);";
@@ -129,7 +130,7 @@ void Transpiler::run()
                 functions.push_back(token.value);
             }
 
-            if (std::find(variables.begin(), variables.end(), token.value) != variables.end())
+            if (std::find(int_variables.begin(), int_variables.end(), token.value) != int_variables.end())
                 if (tokens[index - 1].key == Commands::Set)
                     source += (token.value + "=_stack.top();_stack.pop();");
                 else
@@ -137,7 +138,18 @@ void Transpiler::run()
             else if (tokens[index - 1].key == Commands::Let)
             {
                 source += ("int " + token.value + "=0;");
-                variables.push_back(token.value);
+                int_variables.push_back(token.value);
+            }
+
+            if (std::find(str_variables.begin(), str_variables.end(), token.value) != str_variables.end())
+                if (tokens[index - 1].key == Commands::Sets)
+                    source += (token.value + "=_string_stack.top();_string_stack.pop();");
+                else
+                    source += ("_string_stack.push(" + token.value + ");");
+            else if (tokens[index - 1].key == Commands::Lets)
+            {
+                source += ("std::string " + token.value + "=std::string();");
+                str_variables.push_back(token.value);
             }
             break;
         default:

@@ -17,6 +17,8 @@ enum Commands
     End,
     Set,
     Let,
+    Sets,
+    Lets,
     Put,
     Putc,
     Puts,
@@ -137,6 +139,10 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Set, std::string()});
     else if (collectedToken == "let")
         tokens.push_back(Token{line, Commands::Let, std::string()});
+    else if (collectedToken == "sets")
+        tokens.push_back(Token{line, Commands::Sets, std::string()});
+    else if (collectedToken == "lets")
+        tokens.push_back(Token{line, Commands::Lets, std::string()});
     else if (collectedToken == "put")
         tokens.push_back(Token{line, Commands::Put, std::string()});
     else if (collectedToken == "puts")
