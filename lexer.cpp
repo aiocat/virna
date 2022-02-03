@@ -15,7 +15,8 @@ enum Commands
     End,
     Set,
     Let,
-    Dump
+    Dump,
+    Compare
 };
 
 struct Token
@@ -108,6 +109,18 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Let, std::string()});
     else if (collectedToken == "dump")
         tokens.push_back(Token{line, Commands::Dump, std::string()});
+    else if (collectedToken == "=")
+        tokens.push_back(Token{line, Commands::Compare, "=="});
+    else if (collectedToken == "!")
+        tokens.push_back(Token{line, Commands::Compare, "!="});
+    else if (collectedToken == ">")
+        tokens.push_back(Token{line, Commands::Compare, ">"});
+    else if (collectedToken == "<")
+        tokens.push_back(Token{line, Commands::Compare, "<"});
+    else if (collectedToken == ">=")
+        tokens.push_back(Token{line, Commands::Compare, ">="});
+    else if (collectedToken == "<=")
+        tokens.push_back(Token{line, Commands::Compare, "<="});
     else
     {
         if (isNumber(collectedToken))

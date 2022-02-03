@@ -1,17 +1,4 @@
-let test
-
-in thing
-    100 + 
-    set test
-
-    0 ret
-end
-
 in main
-    50
-    thing
-    test
+    50 10 =
     dump
-
-    0 ret
 end

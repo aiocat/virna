@@ -51,6 +51,9 @@ void Transpiler::run()
         case Commands::Dump:
             source += "_temp_one=_stack.top();_stack.pop();std::cout<<_temp_one;";
             break;
+        case Commands::Compare:
+            source += ("_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_temp_two"+token.value+"_temp_one ? _stack.push(1) : _stack.push(0);");
+            break;
         case Commands::Unknown:
             if (std::find(functions.begin(), functions.end(), token.value) != functions.end())
                 source += ("_temp_one=" + token.value + "();if(_temp_one!=0)return _temp_one;");
