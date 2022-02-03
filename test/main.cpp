@@ -1,0 +1,3 @@
+#include <iostream>
+#include <stack>
+std::stack<int> _stack;int _temp_one, _temp_two;int test=0;int thing(){_stack.push(100);_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two+_temp_one);test=_stack.top();_stack.pop();_stack.push(0);_temp_one=_stack.top();_stack.pop();return _temp_one;};int main(){_stack.push(50);_temp_one=thing();if(_temp_one!=0)return _temp_one;_stack.push(test);_temp_one=_stack.top();_stack.pop();std::cout<<_temp_one;_stack.push(0);_temp_one=_stack.top();_stack.pop();return _temp_one;};

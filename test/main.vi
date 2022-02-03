@@ -1,1 +1,17 @@
-50 100 + 20 - halt test
+let test
+
+in thing
+    100 + 
+    set test
+
+    0 ret
+end
+
+in main
+    50
+    thing
+    test
+    dump
+
+    0 ret
+end

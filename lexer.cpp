@@ -9,8 +9,13 @@ enum Commands
     Sub,
     Div,
     Mul,
-    Halt,
+    Ret,
     Unknown,
+    In,
+    End,
+    Set,
+    Let,
+    Dump
 };
 
 struct Token
@@ -43,6 +48,7 @@ void Lexer::run()
         case '\r':
             break;
         case '\n':
+            determine();
             line++;
             break;
         case '+':
@@ -72,7 +78,7 @@ void Lexer::run()
         if (index + 1 == raw.length())
             determine();
     }
-}
+};
 
 bool isNumber(std::string str)
 {
@@ -83,15 +89,25 @@ bool isNumber(std::string str)
     }
 
     return true;
-}
+};
 
 void Lexer::determine()
 {
     if (collectedToken.length() == 0)
         return;
 
-    if (collectedToken == "halt")
-        tokens.push_back(Token{line, Commands::Halt, std::string()});
+    if (collectedToken == "ret")
+        tokens.push_back(Token{line, Commands::Ret, std::string()});
+    else if (collectedToken == "in")
+        tokens.push_back(Token{line, Commands::In, std::string()});
+    else if (collectedToken == "end")
+        tokens.push_back(Token{line, Commands::End, std::string()});
+    else if (collectedToken == "set")
+        tokens.push_back(Token{line, Commands::Set, std::string()});
+    else if (collectedToken == "let")
+        tokens.push_back(Token{line, Commands::Let, std::string()});
+    else if (collectedToken == "dump")
+        tokens.push_back(Token{line, Commands::Dump, std::string()});
     else
     {
         if (isNumber(collectedToken))
@@ -101,4 +117,4 @@ void Lexer::determine()
     }
 
     collectedToken = std::string();
-}
+};

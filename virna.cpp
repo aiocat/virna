@@ -1,7 +1,7 @@
 #include <fstream>
 #include <streambuf>
 
-#include "./lexer.cpp"
+#include "./transpiler.cpp"
 
 int main(int argc, char **argv)
 {
@@ -36,8 +36,10 @@ int main(int argc, char **argv)
 
     lexer.run();
 
-    for (auto iterate = lexer.tokens.begin(); iterate != lexer.tokens.end(); ++iterate)
-    {
-        std::cout << iterate->key << " " << iterate->value << "\n";
-    }
+    Transpiler transpiler;
+    transpiler.tokens = lexer.tokens;
+
+    transpiler.run();
+
+    std::cout << transpiler.source;
 }
