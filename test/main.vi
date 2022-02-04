@@ -7,21 +7,14 @@ in main
 
     10 putc
 
-    "Read a file: " puts
-    gets read
+    "vir"
 
-    if 
-        dups puts
-    end
+    'h 's '.
+    appendc
+    appendc
+    appendc read
 
-    10 putc
-    
-    "Save to: " puts
-    gets write
-
-    if 
-        "Success!" puts
-    end
+    if puts end
 
     0 ret
 end

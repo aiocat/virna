@@ -106,6 +106,9 @@ void Transpiler::run()
         case Commands::Putc:
             source += "_temp_one=_stack.top();_stack.pop();std::cout<<(char)_temp_one;";
             break;
+        case Commands::Appendc:
+            source += "_temp_one=_stack.top();_stack.pop();_string_temp_one=_string_stack.top();_string_stack.pop();_string_temp_one+=(char)_temp_one;_string_stack.push(_string_temp_one);";
+            break;
         case Commands::Lens:
             source += "_string_temp_one=_string_stack.top();_string_stack.pop();_stack.push(_string_temp_one.length());";
             break;

@@ -43,7 +43,8 @@ enum Commands
     Import,
     Inline,
     Read,
-    Write
+    Write,
+    Appendc
 };
 
 struct Token
@@ -209,6 +210,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Read, std::string()});
     else if (collectedToken == "write")
         tokens.push_back(Token{line, Commands::Write, std::string()});
+    else if (collectedToken == "appendc")
+        tokens.push_back(Token{line, Commands::Appendc, std::string()});
     else if (collectedToken == "+")
         tokens.push_back(Token{line, Commands::Add, std::string()});
     else if (collectedToken == "++")
