@@ -1,0 +1,53 @@
+# Brainfuck to C Transpiler written in Virna. #
+
+in main
+    # Get input and read the file #
+    "File to read (without .bf extension): " puts
+    gets dups ".bf" ++ readf
+
+    revs trns # Reverse string and move to int stack #
+
+    "#include <stdio.h>\nchar array[30000]={0}; char *ptr = array;\nint main(){" # Program start #
+
+    while
+        dup 43 = if 
+            "++*ptr;" ++
+        end
+
+        dup 45 = if 
+            "--*ptr;" ++
+        end
+
+        dup 62 = if 
+            "++ptr;" ++
+        end
+
+        dup 60 = if 
+            "--ptr;" ++
+        end
+
+        dup 46 = if 
+            "putchar(*ptr);" ++
+        end
+
+        dup 44 = if 
+            "*ptr=getchar();" ++
+        end
+
+        dup 91 = if 
+            "while(*ptr){" ++
+        end
+
+        dup 93 = if 
+            "};" ++
+        end
+
+        pop
+    end
+
+    "};" ++
+    
+    # Write to file #
+    swaps ".c" ++
+    writef
+end

@@ -6,7 +6,5 @@ in main
     ask cube 
     put
 
-    2 "\nHello World\n" write
-
     0 ret
 end
