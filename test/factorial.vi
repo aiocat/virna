@@ -1,0 +1,25 @@
+in factorial inline
+    dup
+    dup
+
+    let temp
+    set temp
+
+    temp 3 < if 
+        pop pop
+        temp
+
+        0 ret
+    end
+
+    while
+        1 - temp * set temp 1 - dup
+        
+        dup 2 = if break end
+    end
+
+    pop pop
+    temp
+
+    0 ret
+end

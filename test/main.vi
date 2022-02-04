@@ -1,9 +1,9 @@
-import "test.vi"
+import "io.vi"
+import "factorial.vi"
 
 in main
-    ask
-    check
-    last
+    ask factorial
+    put
 
     0 ret
 end

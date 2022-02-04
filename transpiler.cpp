@@ -125,7 +125,11 @@ void Transpiler::run()
                 source += ("_temp_one=" + token.value + "();if(_temp_one!=0)return _temp_one;");
             else if (tokens[index - 1].key == Commands::In)
             {
-                source += ("int " + token.value + "(){");
+                if (tokens[index + 1].key == Commands::Inline)
+                    source += ("inline int " + token.value + "(){");
+                else
+                    source += ("int " + token.value + "(){");
+                    
                 functions.push_back(token.value);
             }
 
