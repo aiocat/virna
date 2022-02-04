@@ -43,7 +43,10 @@ void Transpiler::run()
             source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two-_temp_one);";
             break;
         case Commands::Dimo:
-            source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push((int)_temp_two/_temp_one);_stack.push(_temp_two%%_temp_one);";
+            source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push((int)_temp_two/_temp_one);_stack.push(_temp_two%_temp_one);";
+            break;
+        case Commands::Mod:
+            source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two%_temp_one);";
             break;
         case Commands::Mul:
             source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two*_temp_one);";

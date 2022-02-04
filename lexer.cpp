@@ -46,7 +46,8 @@ enum Commands
     Writef,
     Appendc,
     Write,
-    Shell
+    Shell,
+    Mod
 };
 
 struct Token
@@ -96,6 +97,10 @@ void Lexer::run()
             case '*':
                 tokens.push_back(Token{
                     line, Commands::Mul, std::string()});
+                break;
+            case '%':
+                tokens.push_back(Token{
+                    line, Commands::Mod, std::string()});
                 break;
             case ' ':
                 determine();
