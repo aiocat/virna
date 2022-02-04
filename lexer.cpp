@@ -39,7 +39,8 @@ enum Commands
     Trns,
     Revs,
     Get,
-    Gets
+    Gets,
+    Import
 };
 
 struct Token
@@ -197,6 +198,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Get, std::string()});
     else if (collectedToken == "gets")
         tokens.push_back(Token{line, Commands::Gets, std::string()});
+    else if (collectedToken == "import")
+        tokens.push_back(Token{line, Commands::Import, std::string()});
     else if (collectedToken == "+")
         tokens.push_back(Token{line, Commands::Add, std::string()});
     else if (collectedToken == "++")

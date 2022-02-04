@@ -5,6 +5,7 @@
 class Transpiler
 {
 public:
+    bool allowInclude;
     std::vector<Token> tokens;
     std::string source;
     std::vector<std::string> includes;
@@ -17,10 +18,14 @@ public:
 
 void Transpiler::run()
 {
-    includes.push_back("iostream");
-    includes.push_back("stack");
+    if (allowInclude)
+    {
+        includes.push_back("iostream");
+        includes.push_back("stack");
+        includes.push_back("algorithm");
 
-    source = "std::stack<int> _stack;int _temp_one, _temp_two;std::stack<std::string> _string_stack;std::string _string_temp_one, _string_temp_two;";
+        source = "std::stack<int> _stack;int _temp_one, _temp_two;std::stack<std::string> _string_stack;std::string _string_temp_one, _string_temp_two;";
+    }
 
     for (int index = 0; index < tokens.size(); index++)
     {
@@ -79,9 +84,6 @@ void Transpiler::run()
         case Commands::Else:
             source += "}else{";
             break;
-        case Commands::String:
-            source += ("_string_stack.push(\"" + token.value + "\");");
-            break;
         case Commands::Adds:
             source += "_string_temp_one=_string_stack.top();_string_stack.pop();_string_temp_two=_string_stack.top();_string_stack.pop();_string_stack.push(_string_temp_two+_string_temp_one);";
             break;
@@ -107,9 +109,6 @@ void Transpiler::run()
             source += "_string_temp_one=_string_stack.top();_string_stack.pop();_stack.push(_string_temp_one.length());";
             break;
         case Commands::Revs:
-            if (std::find(int_variables.begin(), int_variables.end(), token.value) == int_variables.end())
-                includes.push_back("algorithm");
-
             source += "_string_temp_one=_string_stack.top();_string_stack.pop();std::reverse(_string_temp_one.begin(),_string_temp_one.end());_string_stack.push(_string_temp_one);";
             break;
         case Commands::Trns:
@@ -152,17 +151,63 @@ void Transpiler::run()
                 str_variables.push_back(token.value);
             }
             break;
+        case Commands::String:
+            if (tokens[index - 1].key == Commands::Import)
+            {
+                std::string fileContent;
+                std::ifstream textFile(token.value);
+
+                if (!textFile)
+                {
+                    std::cerr << "Not a valid file path";
+                    break;
+                }
+
+                textFile.seekg(0, std::ios::end);
+                fileContent.reserve(textFile.tellg());
+                textFile.seekg(0, std::ios::beg);
+
+                fileContent.assign((std::istreambuf_iterator<char>(textFile)), std::istreambuf_iterator<char>());
+                textFile.close();
+
+                Lexer lexer;
+                lexer.line = 1;
+                lexer.raw = fileContent;
+
+                lexer.run();
+
+                Transpiler transpiler;
+                transpiler.tokens = lexer.tokens;
+                transpiler.allowInclude = false;
+
+                transpiler.run();
+                source += transpiler.source;
+
+                for (int i = 0; i < transpiler.functions.size(); i++)
+                    functions.push_back(transpiler.functions[i]);
+
+                for (int i = 0; i < transpiler.int_variables.size(); i++)
+                    int_variables.push_back(transpiler.int_variables[i]);
+
+                for (int i = 0; i < transpiler.str_variables.size(); i++)
+                    str_variables.push_back(transpiler.str_variables[i]);
+            }
+            else
+            {
+                source += ("_string_stack.push(\"" + token.value + "\");");
+                break;
+            }
         default:
             break;
         }
     }
 
-    std::string upperCode = std::string();
-
-    for (int i = 0; i < includes.size(); i++)
+    if (allowInclude)
     {
-        upperCode += ("#include <" + includes[i] + ">\n");
-    }
+        std::string upperCode = std::string();
+        for (int i = 0; i < includes.size(); i++)
+            upperCode += ("#include <" + includes[i] + ">\n");
 
-    source = upperCode + source;
+        source = upperCode + source;
+    }
 }

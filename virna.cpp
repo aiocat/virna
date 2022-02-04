@@ -1,7 +1,12 @@
 #include <fstream>
 #include <streambuf>
+#include <unistd.h>
 
 #include "./transpiler.cpp"
+
+std::string getDir(std::string str);
+std::string getFileName(std::string str);
+std::string getBaseName(std::string str);
 
 int main(int argc, char **argv)
 {
@@ -14,7 +19,7 @@ int main(int argc, char **argv)
     std::string fileName = argv[1];
     std::string fileContent;
 
-    std::ifstream textFile(fileName+".vi");
+    std::ifstream textFile(fileName + ".vi");
 
     if (!textFile)
     {
@@ -32,17 +37,35 @@ int main(int argc, char **argv)
     Lexer lexer;
     lexer.line = 1;
     lexer.raw = fileContent;
-    lexer.collectedToken = std::string();
-    lexer.tokens = std::vector<Token>();
 
     lexer.run();
 
     Transpiler transpiler;
     transpiler.tokens = lexer.tokens;
 
+    chdir(getDir(fileName).c_str());
     transpiler.run();
 
-    std::ofstream sourceOutput(fileName+".cpp");
+    std::ofstream sourceOutput(getBaseName(fileName) + ".cpp");
     sourceOutput << transpiler.source << std::endl;
     sourceOutput.close();
+}
+
+std::string getDir(std::string str)
+{
+    size_t found;
+    found = str.find_last_of("/\\");
+    return str.substr(0, found);
+}
+
+std::string getFileName(std::string str)
+{
+    size_t found;
+    found = str.find_last_of(".");
+    return str.substr(0, found);
+}
+
+std::string getBaseName(std::string str)
+{
+    return str.substr(str.find_last_of("/\\") + 1);
 }
