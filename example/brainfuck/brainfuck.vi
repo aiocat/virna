@@ -7,7 +7,7 @@ in main
 
     revs trns # Reverse string and move to int stack #
 
-    "#include <stdio.h>\nchar array[30000]={0}; char *ptr = array;\nint main(){" # Program start #
+    "#include <stdio.h>\nchar array[30000]={0};char *ptr=array;\nint main(){" # Program start #
 
     while
         dup 43 = if 
