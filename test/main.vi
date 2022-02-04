@@ -6,5 +6,7 @@ in main
     ask cube 
     put
 
+    "dir" shell
+
     0 ret
 end

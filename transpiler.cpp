@@ -22,7 +22,6 @@ void Transpiler::run()
     {
         includes.push_back("iostream");
         includes.push_back("stack");
-        includes.push_back("algorithm");
         includes.push_back("fstream");
 
         source = "std::stack<int> _stack;int _temp_one, _temp_two;std::stack<std::string> _string_stack;std::string _string_temp_one, _string_temp_two;std::ifstream _text_file;std::ofstream _otext_file;";
@@ -113,6 +112,9 @@ void Transpiler::run()
             source += "_string_temp_one=_string_stack.top();_string_stack.pop();_stack.push(_string_temp_one.length());";
             break;
         case Commands::Revs:
+            if (std::find(includes.begin(), includes.end(), "algorithm") == includes.end())
+                includes.push_back("algorithm");
+
             source += "_string_temp_one=_string_stack.top();_string_stack.pop();std::reverse(_string_temp_one.begin(),_string_temp_one.end());_string_stack.push(_string_temp_one);";
             break;
         case Commands::Trns:
@@ -129,6 +131,12 @@ void Transpiler::run()
             break;
         case Commands::Write:
             source += "_string_temp_one=_string_stack.top();_string_stack.pop();_string_temp_two=_string_stack.top();_string_stack.pop();_otext_file.open(_string_temp_one);if(!_otext_file){_stack.push(0);};_otext_file<<_string_temp_two;_otext_file.close();_stack.push(1);";
+            break;
+        case Commands::Shell:
+            if (std::find(includes.begin(), includes.end(), "stdlib.h") == includes.end())
+                includes.push_back("stdlib.h");
+
+            source += "_string_temp_one=_string_stack.top();_string_stack.pop();_stack.push(system(_string_temp_one.c_str()));";
             break;
         case Commands::Unknown:
             if (std::find(functions.begin(), functions.end(), token.value) != functions.end())
@@ -217,6 +225,10 @@ void Transpiler::run()
 
                 transpiler.run();
                 source += transpiler.source;
+
+                for (int i = 0; i < transpiler.includes.size(); i++)
+                    if (std::find(includes.begin(), includes.end(), transpiler.includes[i]) == includes.end())
+                        includes.push_back(transpiler.includes[i]);
 
                 for (int i = 0; i < transpiler.functions.size(); i++)
                     functions.push_back(transpiler.functions[i]);
