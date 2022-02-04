@@ -59,6 +59,7 @@ class Lexer
 public:
     int line;
     bool collectingString;
+    bool inComment;
     std::string raw;
     std::string collectedToken;
     std::vector<Token> tokens;
@@ -70,12 +71,13 @@ public:
 void Lexer::run()
 {
     collectingString = false;
+    inComment = false;
 
     for (int index = 0; index < raw.length(); index++)
     {
         char character = raw[index];
 
-        if (!collectingString)
+        if (!collectingString && !inComment)
         {
             switch (character)
             {
@@ -96,6 +98,9 @@ void Lexer::run()
             case ' ':
                 determine();
                 break;
+            case '#':
+                inComment = true;
+                break;
             case '"':
                 collectingString = true;
                 break;
@@ -106,13 +111,17 @@ void Lexer::run()
 
             if (index + 1 == raw.length())
                 determine();
-        } else {
+        } else if (collectingString) {
             if (character == '"' && raw[index - 1] != '\\') {
                 tokens.push_back(Token{line, Commands::String, collectedToken});
                 collectedToken = "";
                 collectingString = false;
             } else {
                 collectedToken += character;
+            }
+        } else {
+            if (character == '#') {
+                inComment = false;
             }
         }
     }

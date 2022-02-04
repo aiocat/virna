@@ -1,20 +1,10 @@
+import "../std/math.vi"
 import "io.vi"
-import "factorial.vi"
 
+# Program starts here: #
 in main
-    ask factorial
+    ask cube 
     put
-
-    10 putc
-
-    "vir"
-
-    'h 's '.
-    appendc
-    appendc
-    appendc read
-
-    if puts end
 
     0 ret
 end

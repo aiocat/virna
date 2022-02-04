@@ -1,4 +1,6 @@
 in factorial inline
+    # n => n! #
+    
     dup
     dup
 
@@ -21,5 +23,21 @@ in factorial inline
     pop pop
     temp
 
+    0 ret
+end
+
+
+in sqrt inline 
+    # n => n^2 #
+
+    dup *
+    0 ret
+end
+
+
+in cube inline
+    # n => n^3 #
+
+    dup dup * *
     0 ret
 end

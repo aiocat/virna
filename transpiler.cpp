@@ -132,39 +132,60 @@ void Transpiler::run()
             break;
         case Commands::Unknown:
             if (std::find(functions.begin(), functions.end(), token.value) != functions.end())
+            {
                 source += ("_temp_one=" + token.value + "();if(_temp_one!=0)return _temp_one;");
+                break;
+            }
             else if (tokens[index - 1].key == Commands::In)
             {
                 if (tokens[index + 1].key == Commands::Inline)
                     source += ("inline int " + token.value + "(){");
                 else
                     source += ("int " + token.value + "(){");
-                    
+
                 functions.push_back(token.value);
+                break;
             }
 
             if (std::find(int_variables.begin(), int_variables.end(), token.value) != int_variables.end())
+            {
                 if (tokens[index - 1].key == Commands::Set)
                     source += (token.value + "=_stack.top();_stack.pop();");
+                else if (tokens[index - 1].key == Commands::Let)
+                    source += ("int " + token.value + "=0;");
                 else
                     source += ("_stack.push(" + token.value + ");");
+
+                break;
+            }
             else if (tokens[index - 1].key == Commands::Let)
             {
                 source += ("int " + token.value + "=0;");
                 int_variables.push_back(token.value);
+                break;
             }
 
             if (std::find(str_variables.begin(), str_variables.end(), token.value) != str_variables.end())
+            {
                 if (tokens[index - 1].key == Commands::Sets)
                     source += (token.value + "=_string_stack.top();_string_stack.pop();");
+                else if (tokens[index - 1].key == Commands::Lets)
+                    source += ("std::string " + token.value + "=std::string();");
                 else
                     source += ("_string_stack.push(" + token.value + ");");
+
+                break;
+            }
             else if (tokens[index - 1].key == Commands::Lets)
             {
                 source += ("std::string " + token.value + "=std::string();");
                 str_variables.push_back(token.value);
+                break;
             }
-            break;
+
+            std::cerr << "[L" << token.line << "]: Unknown token error\n";
+            exit(1);
+
         case Commands::String:
             if (tokens[index - 1].key == Commands::Import)
             {

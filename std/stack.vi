@@ -1,0 +1,8 @@
+in over inline
+    # a b => a b a #
+
+    let temp
+    set temp dup temp swap
+
+    0 ret
+end
