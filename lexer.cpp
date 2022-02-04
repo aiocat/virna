@@ -42,9 +42,10 @@ enum Commands
     Gets,
     Import,
     Inline,
-    Read,
-    Write,
+    Readf,
+    Writef,
     Appendc,
+    Write,
     Shell
 };
 
@@ -216,8 +217,10 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Import, std::string()});
     else if (collectedToken == "inline")
         tokens.push_back(Token{line, Commands::Inline, std::string()});
-    else if (collectedToken == "read")
-        tokens.push_back(Token{line, Commands::Read, std::string()});
+    else if (collectedToken == "readf")
+        tokens.push_back(Token{line, Commands::Readf, std::string()});
+    else if (collectedToken == "writef")
+        tokens.push_back(Token{line, Commands::Writef, std::string()});
     else if (collectedToken == "write")
         tokens.push_back(Token{line, Commands::Write, std::string()});
     else if (collectedToken == "appendc")

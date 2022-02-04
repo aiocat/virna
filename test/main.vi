@@ -6,7 +6,7 @@ in main
     ask cube 
     put
 
-    "dir" shell
+    2 "\nHello World\n" write
 
     0 ret
 end
