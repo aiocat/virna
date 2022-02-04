@@ -10,4 +10,5 @@ build:
 test:
   stage: test
   script:
+    - chmod +x ./vir.sh
     - ./vir.sh ./test/main g++
