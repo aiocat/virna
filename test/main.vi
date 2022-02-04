@@ -5,5 +5,23 @@ in main
     ask factorial
     put
 
+    10 putc
+
+    "Read a file: " puts
+    gets read
+
+    if 
+        dups puts
+    end
+
+    10 putc
+    
+    "Save to: " puts
+    gets write
+
+    if 
+        "Success!" puts
+    end
+
     0 ret
 end
