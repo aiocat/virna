@@ -1,0 +1,13 @@
+image: gcc
+
+build:
+  stage: build
+  script: g++ virna.cpp -o virna
+  artifacts:
+    paths:
+      - virna
+
+test:
+  stage: test
+  script:
+    - ./vir.sh ./test/main g++
