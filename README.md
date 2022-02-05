@@ -86,8 +86,6 @@ Program Start  []
 
 String escapes are same with C++.
 
-### Stack Manupilation
-
 #### Arithmetic Operations
 
 | Syntax | Description                                                                      |
@@ -253,9 +251,9 @@ end
 
 ### System
 
-`readf` and `writef` will return `1` if success, `0` if it isn't.
+`readf` and `writef` returns `1` if success, `0` if it isn't.
 
-`shell` will return the program exit number. (`0` if success)
+`shell` returns the program exit number. (`0` if success)
 
 | Syntax | Description                                                                                                                             |
 | ------ | --------------------------------------------------------------------------------------------------------------------------------------- |
@@ -313,7 +311,7 @@ end
 
 ### If-Else
 
-If block will be executed if the number of the top of the stack is `1`. Else, it will execute the else block if exists.
+If block will be executed if the number of the top of the stack is `1`. Else, it executes the else block if block exists.
 
 ```virna
 in main
@@ -335,7 +333,7 @@ end
 | skip   | Skip the loop. (same with `continue`) |
 | break  | Break the loop without waiting.       |
 
-While loop will be continue until the number of the top of the stack is `0`.
+While loop continues until the number of the top of the stack is `0`.
 
 ```virna
 in main
@@ -346,6 +344,20 @@ in main
     0 ret
 end
 ```
+
+### Repeat Loop
+
+`repeat` keyword fetches the number on the top of the stack and repeats the code.
+
+```virna
+in main
+    5 repeat
+        65 putc
+    end
+end
+```
+
+this program prints `A` 5 times.
 
 ## Types in Virna
 

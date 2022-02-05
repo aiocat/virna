@@ -84,6 +84,9 @@ void Transpiler::run()
         case Commands::If:
             source += "_temp_one=_stack.top();_stack.pop();if(_temp_one==1){";
             break;
+        case Commands::Repeat:
+            source += "_temp_one=_stack.top();_stack.pop();for(int _t=0;_t<_temp_one;_t++){";
+            break;
         case Commands::While:
             source += "while(_stack.top()!=0){";
             break;

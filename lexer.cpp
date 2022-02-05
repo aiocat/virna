@@ -54,7 +54,8 @@ enum Commands
     BitwiseOr,
     BitwiseAnd,
     BitwiseNot,
-    BitwiseXor
+    BitwiseXor,
+    Repeat
 };
 
 struct Token
@@ -261,6 +262,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Appendc, std::string()});
     else if (collectedToken == "shell")
         tokens.push_back(Token{line, Commands::Shell, std::string()});
+    else if (collectedToken == "repeat")
+        tokens.push_back(Token{line, Commands::Repeat, std::string()});
     else if (collectedToken == "+")
         tokens.push_back(Token{line, Commands::Add, std::string()});
     else if (collectedToken == "++")

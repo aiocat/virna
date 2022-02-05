@@ -15,5 +15,12 @@ in main
     10 2 ^  put     10 putc
     10 ~    put     10 putc
 
+    # Test repeat control-flow #
+    10 repeat
+        10 putc
+    end
+
+    "After 10 newline\n" puts
+
     0 ret
 end
