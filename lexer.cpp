@@ -142,21 +142,48 @@ void Lexer::run()
 
             if (index + 1 == raw.length())
                 determine();
-        } else if (collectingString) {
-            if (character == '"' && raw[index - 1] != '\\') {
+        }
+        else if (collectingString)
+        {
+            if (character == '"' && raw[index - 1] != '\\')
+            {
                 tokens.push_back(Token{line, Commands::String, collectedToken});
                 collectedToken = "";
                 collectingString = false;
-            } else {
+            }
+            else
+            {
                 collectedToken += character;
             }
-        } else {
-            if (character == '#') {
+        }
+        else
+        {
+            if (character == '#')
+            {
                 inComment = false;
             }
         }
     }
 };
+
+bool isHexN(std::string str)
+{
+    if (!(str[0] == '0' && str[1] == 'x'))
+        return false;
+    if (str.length() < 3)
+        return false;
+
+    for (int index = 2; index < str.length(); index++)
+    {
+        if (std::isdigit(str[index]) != 0 || (str[index] == 'A' || str[index] == 'B' || str[index] == 'C' || str[index] == 'D' || str[index] == 'E' || str[index] == 'F' ||
+                                              str[index] == 'a' || str[index] == 'b' || str[index] == 'c' || str[index] == 'd' || str[index] == 'e' || str[index] == 'f'))
+            continue;
+        else
+            return false;
+    }
+
+    return true;
+}
 
 bool isNumber(std::string str)
 {
@@ -270,7 +297,7 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Adds, std::string()});
     else
     {
-        if (isNumber(collectedToken))
+        if (isNumber(collectedToken) || isHexN(collectedToken))
             tokens.push_back(Token{line, Commands::Number, collectedToken});
         else if (collectedToken.length() == 2 && collectedToken[0] == '\'')
             tokens.push_back(Token{line, Commands::Number, std::to_string((int)collectedToken[1])});

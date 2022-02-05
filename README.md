@@ -66,6 +66,17 @@ Program Start  []
 +              [130]
 ```
 
+Writing numbers as hexadecimal also valid:
+
+```virna
+in main
+    # Same program with hexadecimal numbers #
+
+    0x64 0x1e +
+    0 ret
+end
+```
+
 ### Strings
 
 ```virna
