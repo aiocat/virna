@@ -48,7 +48,13 @@ enum Commands
     Write,
     Shell,
     Mod,
-    Neg
+    Neg,
+    RightShift,
+    LeftShift,
+    BitwiseOr,
+    BitwiseAnd,
+    BitwiseNot,
+    BitwiseXor
 };
 
 struct Token
@@ -98,6 +104,22 @@ void Lexer::run()
             case '*':
                 tokens.push_back(Token{
                     line, Commands::Mul, std::string()});
+                break;
+            case '|':
+                tokens.push_back(Token{
+                    line, Commands::BitwiseOr, std::string()});
+                break;
+            case '&':
+                tokens.push_back(Token{
+                    line, Commands::BitwiseAnd, std::string()});
+                break;
+            case '~':
+                tokens.push_back(Token{
+                    line, Commands::BitwiseNot, std::string()});
+                break;
+            case '^':
+                tokens.push_back(Token{
+                    line, Commands::BitwiseXor, std::string()});
                 break;
             case '%':
                 tokens.push_back(Token{
@@ -193,6 +215,10 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Compare, ">"});
     else if (collectedToken == "<")
         tokens.push_back(Token{line, Commands::Compare, "<"});
+    else if (collectedToken == ">>")
+        tokens.push_back(Token{line, Commands::RightShift, ">"});
+    else if (collectedToken == "<<")
+        tokens.push_back(Token{line, Commands::LeftShift, "<"});
     else if (collectedToken == ">=")
         tokens.push_back(Token{line, Commands::Compare, ">="});
     else if (collectedToken == "<=")

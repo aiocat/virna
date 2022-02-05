@@ -3,20 +3,17 @@ import "io.vi"
 
 # Program starts here: #
 in main
+    # Math cbrt #
     ask cbrt 
-    put
+    put 10 putc
 
-    10 putc # New line #
-
-    5 neg abs put # Testing negative numbers and abs #
-
-    10 putc # New line #
-
-    8 2 max put # Test max function #
-
-    10 putc # New line #
-
-    3 10 min put # Test min function #
+    # Test bitwise operators #
+    10 2 >> put     10 putc
+    10 2 << put     10 putc
+    10 2 |  put     10 putc
+    10 2 &  put     10 putc
+    10 2 ^  put     10 putc
+    10 ~    put     10 putc
 
     0 ret
 end

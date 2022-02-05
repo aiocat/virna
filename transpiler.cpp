@@ -54,6 +54,24 @@ void Transpiler::run()
         case Commands::Ret:
             source += "_temp_one=_stack.top();_stack.pop();return _temp_one;";
             break;
+        case Commands::RightShift:
+            source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two>>_temp_one);";
+            break;
+        case Commands::LeftShift:
+            source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two<<_temp_one);";
+            break;
+        case Commands::BitwiseAnd:
+            source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two & _temp_one);";
+            break;
+        case Commands::BitwiseOr:
+            source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two | _temp_one);";
+            break;
+        case Commands::BitwiseXor:
+            source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two ^ _temp_one);";
+            break;
+        case Commands::BitwiseNot:
+            source += "_temp_one=_stack.top();_stack.pop();_stack.push(~_temp_one);";
+            break;
         case Commands::End:
             source += "};";
             break;
