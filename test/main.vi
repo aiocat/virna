@@ -6,5 +6,9 @@ in main
     ask cube 
     put
 
+    10 putc # New line #
+
+    5 neg sqrt put # Testing negative numbers #
+
     0 ret
 end

@@ -84,6 +84,9 @@ void Transpiler::run()
         case Commands::Pop:
             source += "_stack.pop();";
             break;
+        case Commands::Neg:
+            source += "_temp_one=_stack.top();_stack.pop();_stack.push(-_temp_one);";
+            break;
         case Commands::Else:
             source += "}else{";
             break;

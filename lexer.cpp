@@ -47,7 +47,8 @@ enum Commands
     Appendc,
     Write,
     Shell,
-    Mod
+    Mod,
+    Neg
 };
 
 struct Token
@@ -182,6 +183,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Dup, std::string()});
     else if (collectedToken == "dups")
         tokens.push_back(Token{line, Commands::Dups, std::string()});
+    else if (collectedToken == "neg")
+        tokens.push_back(Token{line, Commands::Neg, std::string()});
     else if (collectedToken == "=")
         tokens.push_back(Token{line, Commands::Compare, "=="});
     else if (collectedToken == "!")
