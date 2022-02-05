@@ -1,3 +1,14 @@
+in __over inline
+    # a b => a b a #
+    # added because prevent infinite import loop #
+
+    let temp
+    set temp dup temp swap
+
+    0 ret
+end
+
+
 in factorial inline
     # n => n! #
     
@@ -35,9 +46,63 @@ in sqrt inline
 end
 
 
-in cube inline
+in cbrt inline
     # n => n^3 #
 
     dup dup * *
     0 ret
+end
+
+
+in abs inline
+    # -n => n #
+    # n => n  #
+
+    dup 0 >= if
+        0 ret
+    end
+    
+    0 swap -
+    0 ret
+end
+
+
+in conv inline
+    # -n => n #
+    # n => -n  #
+
+    0 swap -
+    0 ret
+end
+
+
+in max inline
+    # 4 5 => 5 #
+    # 8 2 => 8  #
+
+    swap __over __over >
+
+    if 
+        pop
+        0 ret
+    else
+        swap pop
+        0 ret
+    end
+end
+
+
+in min inline
+    # 4 5 => 3 #
+    # 8 2 => 2  #
+
+    swap __over __over <
+
+    if 
+        pop
+        0 ret
+    else
+        swap pop
+        0 ret
+    end
 end
