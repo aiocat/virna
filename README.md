@@ -393,6 +393,19 @@ in main
 end
 ```
 
+### Forever Loop
+
+I don't think i need to describe this. Continues until forever...
+
+```virna
+in main
+    "Pushin' " puts
+    forever
+        80 putc
+    end
+end
+```
+
 this program prints `A` 5 times.
 
 ## Meta Programming
