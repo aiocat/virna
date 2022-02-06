@@ -1,4 +1,4 @@
-import "../std/string.vi"
+import "../std/stack.vi"
 import "io.vi"
 
 
@@ -17,18 +17,6 @@ in main
         0xA putc
     end
 
-    "After 10 newline\n" puts
-
-    # Test string split #
-    "Split-This-Text"
-    45 # - (Minus) Keycode # 
-    split
-
-    repeat
-        puts
-        10 putc
-    end
-
     # Meta-programming! #
     quote
         5 put
@@ -39,18 +27,24 @@ in main
     put puts
     10 putc
 
-    # Try-Catch-Err #
-    try
-        "What is your age: " puts get
+    # Try-Catch-Err
+        try
+            "What is your age: " puts get
 
-        18 < if
-            err
+            18 < if
+                err
+            end
+
+            "You can drink!" puts
+        catch
+            "You can't drink." puts
         end
+    #
 
-        "You can drink!" puts
-    catch
-        "You can't drink." puts
-    end
+    # Assert #
+    5 7 >
+    "Error message"
+    assert
 
     0 ret
 end

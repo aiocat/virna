@@ -15,3 +15,17 @@ in overs inline
 
     0 ret
 end
+
+in assert inline
+    # 1 => #
+    # 0 => error #
+
+    if
+        0 ret
+    else
+        "Virna (AssertionError): " swaps ++ puts
+        10 putc 
+        1 ret
+    end
+end
+
