@@ -1,0 +1,10 @@
+# 10 Line shell written in Virna. #
+in main
+    forever
+        "\n> " puts gets
+        dups "exit" eqs if break end
+        shell
+    end
+
+    0 ret
+end
