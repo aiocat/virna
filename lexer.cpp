@@ -62,7 +62,8 @@ enum Commands
     Try,
     Catch,
     Err,
-    Getch
+    Getch,
+    Forever
 };
 
 struct Token
@@ -226,6 +227,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Put, std::string()});
     else if (collectedToken == "puts")
         tokens.push_back(Token{line, Commands::Puts, std::string()});
+    else if (collectedToken == "forever")
+        tokens.push_back(Token{line, Commands::Forever, std::string()});
     else if (collectedToken == "if")
         tokens.push_back(Token{line, Commands::If, std::string()});
     else if (collectedToken == "else")

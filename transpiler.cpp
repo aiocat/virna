@@ -92,6 +92,9 @@ void Transpiler::run()
             case Commands::While:
                 source += "while(_stack.top()!=0){";
                 break;
+            case Commands::Forever:
+                source += "while(1){";
+                break;
             case Commands::Break:
                 source += "break;";
                 break;

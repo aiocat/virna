@@ -46,10 +46,11 @@ in main
     "Error message"
     assert
 
-    # Getch command test #
-    10 repeat
+    # Getch command test with forever command #
+    forever
         getch
-        put
+        dup putc
+        dup 113 = if break end 
     end
 
     0 ret
