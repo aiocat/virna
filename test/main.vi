@@ -42,9 +42,15 @@ in main
     #
 
     # Assert #
-    5 7 >
+    5 2 >
     "Error message"
     assert
+
+    # Getch command test #
+    10 repeat
+        getch
+        put
+    end
 
     0 ret
 end

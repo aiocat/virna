@@ -120,24 +120,27 @@ String escapes are same with C++.
 
 #### Stack Manipulation
 
-| Syntax  | Description                                                                                                 |
-| ------- | ----------------------------------------------------------------------------------------------------------- |
-| dup     | Duplicate a number on the top of the stack.                                                                 |
-| dups    | Duplicate a string on the top of the stack.                                                                 |
-| swap    | Swaps two number on the top of the stack.                                                                   |
-| swaps   | Swaps two string on the top of the stack.                                                                   |
-| pop     | Pops a number on the top of the stack.                                                                      |
-| pops    | Pops a string on the top of the stack.                                                                      |
-| trns    | Pushes the string on top of the stack to the number stack. (C Style)                                        |
-| lens    | Calculates length of the string on the top of the stack and pushes to the number stack.                     |
-| revs    | Reverses the string on the top of the stack.                                                                |
-| neg     | Converts the number on the top of the stack to the negative number.                                         |
-| put     | Print the number on the top of the stack and pop it.                                                        |
-| puts    | Print the string on the top of the stack and pop it.                                                        |
-| putc    | Print the number as character on the top of the stack and pop it.                                           |
-| ret     | Returns the number on the top of the stack.                                                                 |
-| appendc | Gets the number on the top of the stack and pushes number as a character to string on the top of the stack. |
-| ++      | Concats the two string on the top of the stack.                                                             |
+| Syntax  | Description                                                                                                               |
+| ------- | ------------------------------------------------------------------------------------------------------------------------- |
+| dup     | Duplicate a number on the top of the stack.                                                                               |
+| dups    | Duplicate a string on the top of the stack.                                                                               |
+| swap    | Swaps two number on the top of the stack.                                                                                 |
+| swaps   | Swaps two string on the top of the stack.                                                                                 |
+| pop     | Pops a number on the top of the stack.                                                                                    |
+| pops    | Pops a string on the top of the stack.                                                                                    |
+| trns    | Pushes the string on top of the stack to the number stack. (C Style)                                                      |
+| lens    | Calculates length of the string on the top of the stack and pushes to the number stack.                                   |
+| revs    | Reverses the string on the top of the stack.                                                                              |
+| neg     | Converts the number on the top of the stack to the negative number.                                                       |
+| put     | Print the number on the top of the stack and pop it.                                                                      |
+| puts    | Print the string on the top of the stack and pop it.                                                                      |
+| putc    | Print the number as character on the top of the stack and pop it.                                                         |
+| get     | Gets number from CLI and pushes to the stack                                                                              |
+| gets    | Gets string from CLI and pushes to the stack                                                                              |
+| getch   | Gets a character from CLI and pushes to the stack. (this function works same `int getch(void)`, not waits for enter key.) |
+| ret     | Returns the number on the top of the stack.                                                                               |
+| appendc | Gets the number on the top of the stack and pushes number as a character to string on the top of the stack.               |
+| ++      | Concats the two string on the top of the stack.                                                                           |
 
 #### Comparison
 

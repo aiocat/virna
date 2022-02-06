@@ -164,6 +164,12 @@ void Transpiler::run()
             case Commands::Gets:
                 source += "std::cin>>_string_temp_one;_string_stack.push(_string_temp_one);";
                 break;
+            case Commands::Getch:
+                if (std::find(includes.begin(), includes.end(), "conio.h") == includes.end())
+                    includes.push_back("conio.h");
+
+                source += "_stack.push(getch());";
+                break;
             case Commands::Readf:
                 source += "_string_temp_one=_string_stack.top();_string_stack.pop();_text_file.open(_string_temp_one);if(!_text_file){_stack.push(0);};_text_file.seekg(0,std::ios::end);_string_temp_two=std::string();_string_temp_two.reserve(_text_file.tellg());_text_file.seekg(0,std::ios::beg);_string_temp_two.assign((std::istreambuf_iterator<char>(_text_file)),std::istreambuf_iterator<char>());_text_file.close();_string_stack.push(_string_temp_two);_stack.push(1);";
                 break;
