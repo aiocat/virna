@@ -339,6 +339,26 @@ in main
 end
 ```
 
+### Try-Catch-Err
+
+`catch` also handles standart errors in C++.
+
+```virna
+in main
+    try
+        "What is your age: " puts get
+
+        18 < if
+            err
+        end
+
+        "You can drink!" puts
+    catch
+        "You can't drink." puts
+    end
+end
+```
+
 ### While Loop
 
 | Syntax | Description                           |
