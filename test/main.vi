@@ -1,6 +1,7 @@
 import "../std/string.vi"
 import "io.vi"
 
+
 # Program starts here: #
 in main
     # Test bitwise operators #
@@ -36,6 +37,20 @@ in main
     put puts
     10 putc
     put puts
+    10 putc
+
+    # Try-Catch-Err #
+    try
+        "What is your age: " puts get
+
+        18 < if
+            err
+        end
+
+        "You can drink!" puts
+    catch
+        "You can't drink." puts
+    end
 
     0 ret
 end

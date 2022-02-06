@@ -95,6 +95,15 @@ void Transpiler::run()
             case Commands::Break:
                 source += "break;";
                 break;
+            case Commands::Try:
+                source += "try{";
+                break;
+            case Commands::Catch:
+                source += "}catch(...){";
+                break;
+            case Commands::Err:
+                source += "throw 0;";
+                break;
             case Commands::Skip:
                 source += "continue;";
                 break;

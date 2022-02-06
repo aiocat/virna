@@ -58,7 +58,10 @@ enum Commands
     Repeat,
     Fetch,
     Fetchs,
-    Quote
+    Quote,
+    Try,
+    Catch,
+    Err
 };
 
 struct Token
@@ -244,6 +247,12 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Fetchs, std::string()});
     else if (collectedToken == "quote")
         tokens.push_back(Token{line, Commands::Quote, std::string()});
+    else if (collectedToken == "try")
+        tokens.push_back(Token{line, Commands::Try, std::string()});
+    else if (collectedToken == "catch")
+        tokens.push_back(Token{line, Commands::Catch, std::string()});
+    else if (collectedToken == "err")
+        tokens.push_back(Token{line, Commands::Err, std::string()});
     else if (collectedToken == "=")
         tokens.push_back(Token{line, Commands::Compare, "=="});
     else if (collectedToken == "!")
