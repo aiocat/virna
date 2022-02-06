@@ -165,7 +165,7 @@ void Transpiler::run()
                 source += "std::cin>>_temp_one;_stack.push(_temp_one);";
                 break;
             case Commands::Gets:
-                source += "std::cin>>_string_temp_one;_string_stack.push(_string_temp_one);";
+                source += "std::getline(std::cin, _string_temp_one);_string_stack.push(_string_temp_one);";
                 break;
             case Commands::Getch:
                 if (std::find(includes.begin(), includes.end(), "conio.h") == includes.end())

@@ -46,12 +46,5 @@ in main
     "Error message"
     assert
 
-    # Getch command test with forever command #
-    forever
-        getch
-        dup putc
-        dup 113 = if break end 
-    end
-
     0 ret
 end
