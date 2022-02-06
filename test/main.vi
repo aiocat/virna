@@ -1,4 +1,5 @@
 import "../std/math.vi"
+import "../std/string.vi"
 import "io.vi"
 
 # Program starts here: #
@@ -21,6 +22,16 @@ in main
     end
 
     "After 10 newline\n" puts
+
+    # Test string split #
+    "Split-This-Text"
+    45 # - (Minus) Keycode # 
+    split
+
+    repeat
+        puts
+        10 putc
+    end
 
     0 ret
 end

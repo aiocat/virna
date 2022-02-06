@@ -2,7 +2,16 @@ in over inline
     # a b => a b a #
 
     let temp
-    set temp dup temp swap
+    set temp dup fetch temp swap
+
+    0 ret
+end
+
+in overs inline
+    # a b => a b a #
+
+    lets temp
+    sets temp dups fetchs temp swaps
 
     0 ret
 end

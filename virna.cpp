@@ -42,6 +42,7 @@ int main(int argc, char **argv)
 
     Transpiler transpiler;
     transpiler.tokens = lexer.tokens;
+    transpiler.allowInclude = true;
 
     chdir(getDir(fileName).c_str());
     transpiler.run();

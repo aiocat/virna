@@ -159,6 +159,7 @@ These commands will return `0` if it isn't, `1` if it is.
 | ------ | ------------------------------------------------------------------ |
 | let    | Create a new variable with default value. (0)                      |
 | set    | Change the variable value with number on top of the stack and pop. |
+| fetch  | Fetches the variable and pushes to the top of the number stack.    |
 
 Example:
 
@@ -168,7 +169,7 @@ in main
     2 3 # Push two values on the top of the stack #
     set test # Test is now 3. and the stack is [2] #
 
-    test # Push test's value on the top of the stack #
+    fetch test # Push test's value on the top of the stack #
     # Stack is now [2, 3] #
     # Variable is 3 #
 end
@@ -180,6 +181,7 @@ end
 | ------ | ------------------------------------------------------------------ |
 | lets   | Create a new variable with default value. ("")                     |
 | sets   | Change the variable value with string on top of the stack and pop. |
+| fetchs | Fetches the variable and pushes to the top of the string stack.    |
 
 Example:
 
@@ -189,7 +191,7 @@ in main
     "Hello" # Push string on the top of the stack #
     sets test # Test is now ,"Hello". and the stack is [] #
 
-    test # Push test's value on the top of the stack #
+    fetchs test # Push test's value on the top of the stack #
     # Stack is now "Hello" #
     # Variable is still "Hello" #
 end

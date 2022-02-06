@@ -1,0 +1,24 @@
+in split inline
+    let temp
+    set temp
+
+    let count
+
+    revs trns
+
+    "" while
+        dup fetch temp = if
+            pop ""
+
+            fetch count 1 +
+            set count
+        else
+            appendc
+        end
+    end
+
+    pop
+    fetch count
+
+    0 ret
+end

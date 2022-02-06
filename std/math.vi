@@ -3,7 +3,7 @@ in __over inline
     # added because prevent infinite import loop #
 
     let temp
-    set temp dup temp swap
+    set temp dup fetch temp swap
 
     0 ret
 end
@@ -18,21 +18,21 @@ in factorial inline
     let temp
     set temp
 
-    temp 3 < if 
+    fetch temp 3 < if 
         pop pop
-        temp
+        fetch temp
 
         0 ret
     end
 
     while
-        1 - temp * set temp 1 - dup
+        1 - fetch temp * set fetch temp 1 - dup
         
         dup 2 = if break end
     end
 
     pop pop
-    temp
+    fetch temp
 
     0 ret
 end
