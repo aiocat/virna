@@ -57,7 +57,8 @@ enum Commands
     BitwiseXor,
     Repeat,
     Fetch,
-    Fetchs
+    Fetchs,
+    Quote
 };
 
 struct Token
@@ -241,6 +242,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Fetch, std::string()});
     else if (collectedToken == "fetchs")
         tokens.push_back(Token{line, Commands::Fetchs, std::string()});
+    else if (collectedToken == "quote")
+        tokens.push_back(Token{line, Commands::Quote, std::string()});
     else if (collectedToken == "=")
         tokens.push_back(Token{line, Commands::Compare, "=="});
     else if (collectedToken == "!")

@@ -1,13 +1,8 @@
-import "../std/math.vi"
 import "../std/string.vi"
 import "io.vi"
 
 # Program starts here: #
 in main
-    # Math cbrt #
-    ask cbrt 
-    put 10 putc
-
     # Test bitwise operators #
     10 2 >> put     10 putc
     10 2 << put     10 putc
@@ -32,6 +27,15 @@ in main
         puts
         10 putc
     end
+
+    # Meta-programming! #
+    quote
+        5 put
+    quote
+
+    put puts
+    10 putc
+    put puts
 
     0 ret
 end

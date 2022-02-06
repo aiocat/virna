@@ -18,7 +18,7 @@ in split inline
     end
 
     pop
-    fetch count
+    fetch count 1 +
 
     0 ret
 end

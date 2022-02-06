@@ -372,6 +372,27 @@ end
 
 this program prints `A` 5 times.
 
+## Meta Programming
+
+Virna allows to access tokens in program.
+
+- [Token Enum](https://gitlab.com/aiocat/virna/-/blob/main/lexer.cpp#L5)
+
+```virna
+in main
+    quote
+        10 put
+    quote
+
+    2 repeat
+        put # Token Key #
+        " => " puts
+        puts # Token Value #
+        10 putc # New Line #
+    end
+end
+```
+
 ## Types in Virna
 
 - `number`: 4 bytes number.
