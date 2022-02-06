@@ -131,7 +131,7 @@ String escapes are same with C++.
 | trns    | Pushes the string on top of the stack to the number stack. (C Style)                                        |
 | lens    | Calculates length of the string on the top of the stack and pushes to the number stack.                     |
 | revs    | Reverses the string on the top of the stack.                                                                |
-| neg     | Convert the number on the top of the stack to the negative number.                                          |
+| neg     | Converts the number on the top of the stack to the negative number.                                         |
 | put     | Print the number on the top of the stack and pop it.                                                        |
 | puts    | Print the string on the top of the stack and pop it.                                                        |
 | putc    | Print the number as character on the top of the stack and pop it.                                           |
@@ -187,7 +187,7 @@ Example:
 in main
     lets test # Create variable with "" #
     "Hello" # Push string on the top of the stack #
-    set test # Test is now ,"Hello". and the stack is [] #
+    sets test # Test is now ,"Hello". and the stack is [] #
 
     test # Push test's value on the top of the stack #
     # Stack is now "Hello" #
