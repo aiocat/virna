@@ -10,7 +10,7 @@ build:
 test:
   stage: test
   script:
-    - chmod +x ./vir.sh
-    - ./vir.sh ./test/main g++
+    - chmod +x ./vir-gitlab.sh
+    - ./vir-gitlab.sh ./test/main g++
     - chmod +x ./test/main
     - ./test/main
