@@ -276,6 +276,8 @@ end
 | readf  | Reads the file on top of the string stack and pushes the body to the string stack and pushes the result on the top of the number stack. |
 | writef | Writes to the file on top of the string stack and pushes the result on the top of the number stack.                                     |
 | shell  | Executes the command on top of the string stack and pushes the result on the top of the number stack.                                   |
+| sleep  | Waits for x second (x = the number on the top of the stack)                                                                             |
+| rand   | Generates pseudo-random number with current time.                                                                                       |
 | write  | Wrapper for write syscall.                                                                                                              |
 
 **Example** `readf`:
@@ -320,6 +322,15 @@ end
 in main
     1 "standart output\n" write
     2 "an stderr ex\n" write
+end
+```
+
+**Example** `rand`:
+
+```virna
+in main
+    100 10 rand # Random between [10..100] #
+    put
 end
 ```
 
