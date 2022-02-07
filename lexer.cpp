@@ -63,7 +63,9 @@ enum Commands
     Catch,
     Err,
     Getch,
-    Forever
+    Forever,
+    Rand,
+    Sleep
 };
 
 struct Token
@@ -251,6 +253,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Fetchs, std::string()});
     else if (collectedToken == "quote")
         tokens.push_back(Token{line, Commands::Quote, std::string()});
+    else if (collectedToken == "sleep")
+        tokens.push_back(Token{line, Commands::Sleep, std::string()});
     else if (collectedToken == "try")
         tokens.push_back(Token{line, Commands::Try, std::string()});
     else if (collectedToken == "catch")
@@ -315,6 +319,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Shell, std::string()});
     else if (collectedToken == "repeat")
         tokens.push_back(Token{line, Commands::Repeat, std::string()});
+    else if (collectedToken == "rand")
+        tokens.push_back(Token{line, Commands::Rand, std::string()});
     else if (collectedToken == "+")
         tokens.push_back(Token{line, Commands::Add, std::string()});
     else if (collectedToken == "++")

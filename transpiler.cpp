@@ -2,6 +2,12 @@
 
 #include "./lexer.cpp"
 
+#ifdef _WIN32
+int _OS = 1;
+#else
+int _OS = 0;
+#endif
+
 class Transpiler
 {
 public:
@@ -173,6 +179,30 @@ void Transpiler::run()
 
                 source += "_stack.push(getch());";
                 break;
+            case Commands::Rand:
+                if (std::find(includes.begin(), includes.end(), "time.h") == includes.end())
+                    includes.push_back("time.h");
+                if (std::find(includes.begin(), includes.end(), "stdlib.h") == includes.end())
+                    includes.push_back("stdlib.h");
+
+                source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();srand(time(NULL));_stack.push(rand()%_temp_two+_temp_one);";
+                break;
+            case Commands::Sleep:
+                if (_OS == 1)
+                {
+                    if (std::find(includes.begin(), includes.end(), "Windows.h") == includes.end())
+                        includes.push_back("Windows.h");
+
+                    source += "_temp_one=_stack.top();_stack.pop();Sleep(_temp_one*1000);";
+                }
+                else
+                {
+                    if (std::find(includes.begin(), includes.end(), "unistd.h") == includes.end())
+                        includes.push_back("unistd.h");
+
+                    source += "_temp_one=_stack.top();_stack.pop();sleep(_temp_one);";
+                }
+                break;
             case Commands::Readf:
                 source += "_string_temp_one=_string_stack.top();_string_stack.pop();_text_file.open(_string_temp_one);if(!_text_file){_stack.push(0);};_text_file.seekg(0,std::ios::end);_string_temp_two=std::string();_string_temp_two.reserve(_text_file.tellg());_text_file.seekg(0,std::ios::beg);_string_temp_two.assign((std::istreambuf_iterator<char>(_text_file)),std::istreambuf_iterator<char>());_text_file.close();_string_stack.push(_string_temp_two);_stack.push(1);";
                 break;
@@ -285,8 +315,11 @@ void Transpiler::run()
             default:
                 break;
             }
-        } else {
-            if (token.key == Commands::Quote) {
+        }
+        else
+        {
+            if (token.key == Commands::Quote)
+            {
                 quoteRuns = false;
                 continue;
             }

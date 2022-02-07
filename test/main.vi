@@ -46,5 +46,13 @@ in main
     "Error message"
     assert
 
+    # Random Number #
+    5 repeat
+        100 1 rand put
+        10 putc
+
+        2 sleep # Sleep function #
+    end
+
     0 ret
 end
