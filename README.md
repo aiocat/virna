@@ -137,10 +137,14 @@ String escapes are same with C++.
 | putc    | Print the number as character on the top of the stack and pop it.                                                         |
 | get     | Gets number from CLI and pushes to the stack                                                                              |
 | gets    | Gets string from CLI and pushes to the stack                                                                              |
-| getch   | Gets a character from CLI and pushes to the stack. (this function works same `int getch(void)`, not waits for enter key.) |
+| getch   | Gets a character from CLI and pushes to the stack. (this function works same with `int getch(void)`, not waits for enter key.) |
 | ret     | Returns the number on the top of the stack.                                                                               |
 | appendc | Gets the number on the top of the stack and pushes number as a character to string on the top of the stack.               |
 | ++      | Concats the two string on the top of the stack.                                                                           |
+| size    | Gets number stack size and pushes to the top of the number stack.                                                         |
+| sizes   | Gets string stack size and pushes to the top of the number stack.                                                         |
+| emp     | Checks if number stack is empty and pushes the result to the number stack. (`1` if it is, `0` if it isn't)                |
+| emps     | Checks if string stack is empty and pushes the result to the number stack. (`1` if it is, `0` if it isn't)                |
 
 #### Comparison
 
