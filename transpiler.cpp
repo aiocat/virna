@@ -224,6 +224,18 @@ void Transpiler::run()
             case Commands::Quote:
                 quoteRuns = true;
                 break;
+            case Commands::Emp:
+                source += ("if(_stack.empty()){_stack.push(1);}else{_stack.push(0);};");
+                break;
+            case Commands::Emps:
+                source += ("if(_string_stack.empty()){_stack.push(1);}else{_stack.push(0);};");
+                break;
+            case Commands::Size:
+                source += ("_stack.push(_stack.size());");
+                break;
+            case Commands::Sizes:
+                source += ("_stack.push(_string_stack.size());");
+                break;
             case Commands::Unknown:
                 if (std::find(functions.begin(), functions.end(), token.value) != functions.end())
                 {
@@ -271,21 +283,21 @@ void Transpiler::run()
             case Commands::String:
                 if (tokens[index - 1].key == Commands::Import)
                 {
-                    std::string fileContent;
-                    std::ifstream textFile(token.value);
+                    std::string fileContent = std::string();
+                    std::ifstream importFile(token.value);
 
-                    if (!textFile)
+                    if (!importFile)
                     {
                         std::cerr << "Not a valid file path";
                         break;
                     }
 
-                    textFile.seekg(0, std::ios::end);
-                    fileContent.reserve(textFile.tellg());
-                    textFile.seekg(0, std::ios::beg);
+                    importFile.seekg(0, std::ios::end);
+                    fileContent.reserve(importFile.tellg());
+                    importFile.seekg(0, std::ios::beg);
 
-                    fileContent.assign((std::istreambuf_iterator<char>(textFile)), std::istreambuf_iterator<char>());
-                    textFile.close();
+                    fileContent.assign((std::istreambuf_iterator<char>(importFile)), std::istreambuf_iterator<char>());
+                    importFile.close();
 
                     Lexer lexer;
                     lexer.line = 1;

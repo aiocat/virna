@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     }
 
     std::string fileName = argv[1];
-    std::string fileContent;
+    std::string fileContent = std::string();
 
     std::ifstream textFile(fileName + ".vi");
 

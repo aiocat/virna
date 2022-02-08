@@ -65,7 +65,11 @@ enum Commands
     Getch,
     Forever,
     Rand,
-    Sleep
+    Sleep,
+    Emp,
+    Emps,
+    Size,
+    Sizes
 };
 
 struct Token
@@ -263,6 +267,14 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Err, std::string()});
     else if (collectedToken == "getch")
         tokens.push_back(Token{line, Commands::Getch, std::string()});
+    else if (collectedToken == "emp")
+        tokens.push_back(Token{line, Commands::Emp, std::string()});
+    else if (collectedToken == "emps")
+        tokens.push_back(Token{line, Commands::Emps, std::string()});
+    else if (collectedToken == "size")
+        tokens.push_back(Token{line, Commands::Size, std::string()});
+    else if (collectedToken == "sizes")
+        tokens.push_back(Token{line, Commands::Sizes, std::string()});
     else if (collectedToken == "=")
         tokens.push_back(Token{line, Commands::Compare, "=="});
     else if (collectedToken == "!")

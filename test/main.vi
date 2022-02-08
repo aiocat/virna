@@ -51,7 +51,14 @@ in main
         100 1 rand put
         10 putc
 
-        2 sleep # Sleep function #
+        1 sleep # Sleep function #
+    end
+
+    # Size, Empt #
+    emp if
+        "Number stack is empyt" puts
+    else
+        size put
     end
 
     0 ret
