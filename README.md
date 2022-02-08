@@ -17,6 +17,7 @@ The compiler is built with C++. Also you can use **vir** for better experience.
   end
   ```
 - [**Brainfuck Compiler**](https://gitlab.com/aiocat/virna/-/blob/main/example/brainfuck/brainfuck.vi)
+- [**Shell**](https://gitlab.com/aiocat/virna/-/blob/main/example/vish/vish.vi)
 
 ## Usage
 
@@ -34,7 +35,8 @@ g++ virna.cpp -o virna
   ```sh
   ./vir.sh ./test/main g++
   ```
-  Second argument can be changed. Ex: if you want to use clang:
+
+Second argument can be changed. Ex: if you want to use clang:
 
 ```sh
 ./vir.sh ./test/main clang++
