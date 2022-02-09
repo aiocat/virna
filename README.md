@@ -505,6 +505,35 @@ in main
 end
 ```
 
+### Labels
+
+Virna has labels to make your job easier.
+
+| Syntax | Description         |
+| ------ | ------------------- |
+| label  | Create a new label. |
+| jump   | Jump to the label.  |
+
+```virna
+# Program starts here: #
+in main
+    2
+
+    # New label #
+    label test
+
+    "Hello World\n" puts
+    1 -
+
+    dup 0 = if
+        0 ret
+    else
+        # Jump to label #
+        jump test
+    end
+end
+```
+
 ### Types in Virna
 
 - `number`: 4 bytes number.
