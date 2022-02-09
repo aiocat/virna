@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 {
     if (argc < 2)
     {
-        std::cerr << "File must be given";
+        std::cerr << "File must be given\n";
         return 1;
     }
 

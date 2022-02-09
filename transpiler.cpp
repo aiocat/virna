@@ -13,6 +13,7 @@ class Transpiler
 public:
     bool allowInclude;
     bool quoteRuns;
+    bool syscallRuns;
     std::vector<Token> tokens;
     std::string source;
     std::vector<std::string> includes;
@@ -24,6 +25,9 @@ public:
 void Transpiler::run()
 {
     quoteRuns = false;
+    syscallRuns = false;
+    std::string syscallArgs = std::string();
+
     if (allowInclude)
     {
         includes.push_back("iostream");
@@ -37,10 +41,18 @@ void Transpiler::run()
     {
         Token token = tokens[index];
 
-        if (!quoteRuns)
+        if (!quoteRuns && !syscallRuns)
         {
             switch (token.key)
             {
+            case Commands::Syscall:
+                if (_OS == 1)
+                {
+                    std::cerr << "[L" << token.line << "]: Syscall block is not supported for windows\n";
+                    exit(1);
+                }
+                syscallRuns = true;
+                break;
             case Commands::Number:
                 source += ("_stack.push(" + token.value + ");");
                 break;
@@ -288,7 +300,7 @@ void Transpiler::run()
 
                     if (!importFile)
                     {
-                        std::cerr << "Not a valid file path";
+                        std::cerr << "Not a valid file path\n";
                         break;
                     }
 
@@ -328,7 +340,7 @@ void Transpiler::run()
                 break;
             }
         }
-        else
+        else if (quoteRuns && !syscallRuns)
         {
             if (token.key == Commands::Quote)
             {
@@ -337,6 +349,43 @@ void Transpiler::run()
             }
 
             source += ("_stack.push(" + std::to_string(token.key) + ");_string_stack.push(\"" + token.value + "\");");
+        }
+        else
+        {
+            switch (token.key)
+            {
+            case Commands::Syscall:
+                if (syscallArgs.empty())
+                {
+                    std::cerr << "[L" << token.line << "]: Empty syscall\n";
+                    exit(1);
+                }
+                if (std::find(includes.begin(), includes.end(), "unistd.h") == includes.end())
+                    includes.push_back("unistd.h");
+
+                if (std::find(includes.begin(), includes.end(), "sys/syscall.h") == includes.end())
+                    includes.push_back("sys/syscall.h");
+
+                syscallArgs.pop_back();
+                syscallRuns = false;
+                source += ("syscall(" + syscallArgs + ");");
+                syscallArgs = std::string();
+                break;
+            case Commands::Number:
+                syscallArgs += (token.value + ",");
+                break;
+            case Commands::String:
+                syscallArgs += ("\"" + token.value + "\",");
+                break;
+            case Commands::Unknown:
+                syscallArgs += (token.value + ",");
+                break;
+            default:
+                std::cerr << "[L" << token.line << "]: Not a valid syscall parameter\n";
+                exit(1);
+
+                break;
+            }
         }
     }
 
