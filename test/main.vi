@@ -12,10 +12,13 @@ in main
     10 2 ^  put     10 putc
     10 ~    put     10 putc
 
-    # Syscall #
+    # Syscall (Linux) #
     syscall
-        0x1 # Syscall (write in this case) # 
-        1 # Args... #
+        # Syscall (write in this case) # 
+        0x1
+
+        # Args... #
+        1
         "hello world\n" 
         12
     syscall
