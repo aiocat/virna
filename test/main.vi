@@ -1,34 +1,15 @@
 import "../std/stack.vi"
 import "io.vi"
 
-
 # Program starts here: #
 in main
-    # Test bitwise operators #
-    10 2 >> put     10 putc
-    10 2 << put     10 putc
-    10 2 |  put     10 putc
-    10 2 &  put     10 putc
-    10 2 ^  put     10 putc
-    10 ~    put     10 putc
+    2 label test
+    "Hello World\n" puts
+    1 -
 
-    "Hello, World!\n" dups lens
-    lets buf
-    sets buf
-
-    let bug_length
-    set bug_length
-
-    # Syscall (Linux) #
-    syscall
-        # Syscall (write in this case) # 
-        0x1
-
-        # Args... #
-        1
-        fetchs buf
-        fetch bug_length
-    syscall
-
-    0 ret
+    dup 0 = if
+        0 ret
+    else
+        jump test
+    end
 end

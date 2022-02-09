@@ -263,6 +263,12 @@ void Transpiler::run()
 
                     functions.push_back(token.value);
                     break;
+                } else if (tokens[index - 1].key == Commands::Label) {
+                    source += (token.value + ":");
+                    break;
+                } else if (tokens[index - 1].key == Commands::Jump) {
+                    source += ("goto " + token.value + ";");
+                    break;
                 }
 
                 switch (tokens[index - 1].key)

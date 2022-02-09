@@ -70,7 +70,9 @@ enum Commands
     Emps,
     Size,
     Sizes,
-    Syscall
+    Syscall,
+    Label,
+    Jump
 };
 
 struct Token
@@ -336,6 +338,10 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Rand, std::string()});
     else if (collectedToken == "syscall")
         tokens.push_back(Token{line, Commands::Syscall, std::string()});
+    else if (collectedToken == "label")
+        tokens.push_back(Token{line, Commands::Label, std::string()});
+    else if (collectedToken == "jump")
+        tokens.push_back(Token{line, Commands::Jump, std::string()});
     else if (collectedToken == "+")
         tokens.push_back(Token{line, Commands::Add, std::string()});
     else if (collectedToken == "++")
