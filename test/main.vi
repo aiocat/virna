@@ -12,6 +12,13 @@ in main
     10 2 ^  put     10 putc
     10 ~    put     10 putc
 
+    "Hello, World!\n" dups lens
+    lets buf
+    sets buf
+
+    let bug_length
+    set bug_length
+
     # Syscall (Linux) #
     syscall
         # Syscall (write in this case) # 
@@ -19,8 +26,8 @@ in main
 
         # Args... #
         1
-        "hello world\n" 
-        12
+        fetchs buf
+        fetch bug_length
     syscall
 
     0 ret

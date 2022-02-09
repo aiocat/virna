@@ -378,11 +378,22 @@ void Transpiler::run()
                 syscallArgs += ("\"" + token.value + "\",");
                 break;
             case Commands::Unknown:
-                syscallArgs += (token.value + ",");
+                if (tokens[index - 1].key == Commands::Fetch)
+                    syscallArgs += (token.value + ",");
+                else if (tokens[index - 1].key == Commands::Fetchs)
+                    syscallArgs += (token.value + ".c_str(),");
+                else
+                {
+                    std::cerr << "[L" << token.line << "]: Unknown value\n";
+                    exit(1);
+                }
                 break;
             default:
-                std::cerr << "[L" << token.line << "]: Not a valid syscall parameter\n";
-                exit(1);
+                if (!tokens[index - 1].key == Commands::Fetch || !tokens[index - 1].key == Commands::Fetchs)
+                {
+                    std::cerr << "[L" << token.line << "]: Not a valid syscall parameter\n";
+                    exit(1);
+                }
 
                 break;
             }

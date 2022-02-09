@@ -99,7 +99,7 @@ Program Start  []
 
 String escapes are same with C++.
 
-#### Arithmetic Operations
+### Arithmetic Operations
 
 | Syntax | Description                                                                      |
 | ------ | -------------------------------------------------------------------------------- |
@@ -109,7 +109,7 @@ String escapes are same with C++.
 | %      | Mods up two elements on the top of the stack.                                    |
 | dimo   | Divides up two elements on the top of the stack and returns both result and mod. |
 
-#### Bitwise Operations
+### Bitwise Operations
 
 | Syntax | Description  |
 | ------ | ------------ |
@@ -120,7 +120,7 @@ String escapes are same with C++.
 | ^      | Bitwise XOR. |
 | ~      | Bitwise NOT. |
 
-#### Stack Manipulation
+### Stack Manipulation
 
 | Syntax  | Description                                                                                                                    |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -148,7 +148,7 @@ String escapes are same with C++.
 | emp     | Checks if number stack is empty and pushes the result to the number stack. (`1` if it is, `0` if it isn't)                     |
 | emps    | Checks if string stack is empty and pushes the result to the number stack. (`1` if it is, `0` if it isn't)                     |
 
-#### Comparison
+### Comparison
 
 These commands will return `0` if it isn't, `1` if it is.
 
@@ -181,6 +181,7 @@ in main
     fetch test # Push test's value on the top of the stack #
     # Stack is now [2, 3] #
     # Variable is 3 #
+    0 ret
 end
 ```
 
@@ -203,6 +204,7 @@ in main
     fetchs test # Push test's value on the top of the stack #
     # Stack is now "Hello" #
     # Variable is still "Hello" #
+    0 ret
 end
 ```
 
@@ -295,6 +297,8 @@ in main
     if
         puts
     end
+
+    0 ret
 end
 ```
 
@@ -307,6 +311,8 @@ in main
     if
         "Success" puts
     end
+
+    0 ret
 end
 ```
 
@@ -319,6 +325,8 @@ in main
     0 = if
         "Success" puts
     end
+
+    0 ret
 end
 ```
 
@@ -328,6 +336,7 @@ end
 in main
     1 "standart output\n" write
     2 "an stderr ex\n" write
+    0 ret
 end
 ```
 
@@ -337,6 +346,7 @@ end
 in main
     100 10 rand # Random between [10..100] #
     put
+    0 ret
 end
 ```
 
@@ -345,7 +355,6 @@ end
 You can use `syscall` block that invokes the system call whose assembly language interface has the specified number with the specified arguments. Example:
 
 ```virna
-# Program starts here: #
 in main
     # Syscall (Linux) #
     syscall
@@ -362,11 +371,37 @@ in main
 end
 ```
 
+Or, more automated version
+
+```virna
+in main
+    "Hello, World!\n" dups lens
+    lets buf
+    sets buf
+
+    let bug_length
+    set bug_length
+
+    # Syscall (Linux) #
+    syscall
+        # Syscall (write in this case) #
+        0x1
+
+        # Args... #
+        1
+        fetchs buf
+        fetch bug_length
+    syscall
+
+    0 ret
+end
+```
+
 This program writes `hello world` to the console output. Syscall block is only supports `number`, `string` and `variables` and you can't use any virna command inside `syscall` block.
 
 ### Control Flow
 
-### If-Else
+#### If-Else
 
 If block will be executed if the number of the top of the stack is `1`. Else, it executes the else block if block exists.
 
@@ -383,7 +418,7 @@ in main
 end
 ```
 
-### Try-Catch-Err
+#### Try-Catch-Err
 
 `catch` also handles standart errors in C++.
 
@@ -403,7 +438,7 @@ in main
 end
 ```
 
-### While Loop
+#### While Loop
 
 | Syntax | Description                           |
 | ------ | ------------------------------------- |
@@ -422,7 +457,7 @@ in main
 end
 ```
 
-### Repeat Loop
+#### Repeat Loop
 
 `repeat` keyword fetches the number on the top of the stack and repeats the code.
 
@@ -433,9 +468,10 @@ in main
     end
 end
 ```
+
 this program prints `A` 5 times.
 
-### Forever Loop
+#### Forever Loop
 
 I don't think i need to describe this. Continues until forever...
 
@@ -448,7 +484,7 @@ in main
 end
 ```
 
-## Meta Programming
+### Meta Programming
 
 Virna allows to access tokens in program.
 
@@ -469,7 +505,7 @@ in main
 end
 ```
 
-## Types in Virna
+### Types in Virna
 
 - `number`: 4 bytes number.
 - `string`: string (`std::string`).
