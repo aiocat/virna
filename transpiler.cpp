@@ -53,6 +53,9 @@ void Transpiler::run()
                 }
                 syscallRuns = true;
                 break;
+            case Commands::CCode:
+                source += token.value;
+                break;
             case Commands::Number:
                 source += ("_stack.push(" + token.value + ");");
                 break;
@@ -263,10 +266,14 @@ void Transpiler::run()
 
                     functions.push_back(token.value);
                     break;
-                } else if (tokens[index - 1].key == Commands::Label) {
+                }
+                else if (tokens[index - 1].key == Commands::Label)
+                {
                     source += (token.value + ":");
                     break;
-                } else if (tokens[index - 1].key == Commands::Jump) {
+                }
+                else if (tokens[index - 1].key == Commands::Jump)
+                {
                     source += ("goto " + token.value + ";");
                     break;
                 }

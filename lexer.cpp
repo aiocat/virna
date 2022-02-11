@@ -72,7 +72,8 @@ enum Commands
     Sizes,
     Syscall,
     Label,
-    Jump
+    Jump,
+    CCode
 };
 
 struct Token
@@ -89,6 +90,7 @@ public:
     bool collectingString;
     bool collectingChar;
     bool inComment;
+    bool collectingC;
     std::string raw;
     std::string collectedToken;
     std::vector<Token> tokens;
@@ -99,13 +101,13 @@ public:
 
 void Lexer::run()
 {
-    collectingString, inComment, collectingChar = false, false, false;
+    collectingString, inComment, collectingChar, collectingC = false, false, false, false;
 
     for (int index = 0; index < raw.length(); index++)
     {
         char character = raw[index];
 
-        if (!collectingString && !inComment && !collectingChar)
+        if (!collectingString && !inComment && !collectingChar && !collectingC)
         {
             switch (character)
             {
@@ -155,6 +157,9 @@ void Lexer::run()
             case '"':
                 collectingString = true;
                 break;
+            case '`':
+                collectingC = true;
+                break;
             default:
                 collectedToken += character;
                 break;
@@ -163,7 +168,7 @@ void Lexer::run()
             if (index + 1 == raw.length())
                 determine();
         }
-        else if (collectingString && !collectingChar)
+        else if (collectingString && !collectingChar && !collectingC)
         {
             if (character == '"' && raw[index - 1] != '\\')
             {
@@ -176,14 +181,14 @@ void Lexer::run()
                 collectedToken += character;
             }
         }
-        else if (inComment)
+        else if (inComment && !collectingChar && !collectingC)
         {
             if (character == '#')
             {
                 inComment = false;
             }
         }
-        else
+        else if (collectingChar && !collectingC)
         {
             if (character == '\'' && raw[index - 1] != '\\')
             {
@@ -209,10 +214,13 @@ void Lexer::run()
                 collectingChar = false;
                 collectedToken = "";
             }
-            else
-            {
-                collectedToken += character;
-            }
+            else collectedToken += character;
+        } else {
+            if (character == '`' && raw[index - 1] != '\\') {
+                tokens.push_back(Token{line, Commands::CCode, collectedToken});
+                collectedToken = "";
+                collectingC = false;
+            } else collectedToken += character;
         }
     }
 };
