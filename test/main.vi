@@ -2,8 +2,11 @@ import "../std/math.vi"
 
 # Program starts here: #
 in main
-    get factorial
+    5 factorial
     put
+
+    '\n' putc
+    '\'' putc
 
     0 ret
 end

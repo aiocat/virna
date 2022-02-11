@@ -87,6 +87,7 @@ class Lexer
 public:
     int line;
     bool collectingString;
+    bool collectingChar;
     bool inComment;
     std::string raw;
     std::string collectedToken;
@@ -98,14 +99,13 @@ public:
 
 void Lexer::run()
 {
-    collectingString = false;
-    inComment = false;
+    collectingString, inComment, collectingChar = false, false, false;
 
     for (int index = 0; index < raw.length(); index++)
     {
         char character = raw[index];
 
-        if (!collectingString && !inComment)
+        if (!collectingString && !inComment && !collectingChar)
         {
             switch (character)
             {
@@ -149,6 +149,9 @@ void Lexer::run()
             case '#':
                 inComment = true;
                 break;
+            case '\'':
+                collectingChar = true;
+                break;
             case '"':
                 collectingString = true;
                 break;
@@ -160,7 +163,7 @@ void Lexer::run()
             if (index + 1 == raw.length())
                 determine();
         }
-        else if (collectingString)
+        else if (collectingString && !collectingChar)
         {
             if (character == '"' && raw[index - 1] != '\\')
             {
@@ -173,11 +176,42 @@ void Lexer::run()
                 collectedToken += character;
             }
         }
-        else
+        else if (inComment)
         {
             if (character == '#')
             {
                 inComment = false;
+            }
+        }
+        else
+        {
+            if (character == '\'' && raw[index - 1] != '\\')
+            {
+                char collectedChar = '\0';
+
+                if (collectedToken == "\\n")
+                    collectedChar = '\n';
+                else if (collectedToken == "\\r")
+                    collectedChar = '\r';
+                else if (collectedToken == "\\t")
+                    collectedChar = '\t';
+                else if (collectedToken == "\\'")
+                    collectedChar = '\'';
+                else if (collectedToken.length() != 1)
+                {
+                    std::cerr << "[L" << line << "]: Incorrect character usage\n";
+                    exit(1);
+                }
+                else
+                    collectedChar = collectedToken[0];
+
+                tokens.push_back(Token{line, Commands::Number, std::to_string((int)collectedChar)});
+                collectingChar = false;
+                collectedToken = "";
+            }
+            else
+            {
+                collectedToken += character;
             }
         }
     }
@@ -350,8 +384,6 @@ void Lexer::determine()
     {
         if (isNumber(collectedToken) || isHexN(collectedToken))
             tokens.push_back(Token{line, Commands::Number, collectedToken});
-        else if (collectedToken.length() == 2 && collectedToken[0] == '\'')
-            tokens.push_back(Token{line, Commands::Number, std::to_string((int)collectedToken[1])});
         else
             tokens.push_back(Token{line, Commands::Unknown, collectedToken});
     }

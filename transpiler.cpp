@@ -306,8 +306,8 @@ void Transpiler::run()
 
                     if (!importFile)
                     {
-                        std::cerr << "Not a valid file path\n";
-                        break;
+                        std::cerr << "[L" << token.line << "]: Not a valid file path\n";
+                        exit(1);
                     }
 
                     importFile.seekg(0, std::ios::end);
