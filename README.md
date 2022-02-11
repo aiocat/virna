@@ -548,6 +548,34 @@ in main
 end
 ```
 
+### Inline-C++
+
+You can use C++ (without limitation) in virna source code.
+
+```virna
+import "../std/math.vi"
+
+`int c_add(int a, int b) {
+    return a + b;
+}`
+
+# Program starts here: #
+in main
+    5 10
+    let test1
+    let test2
+
+    set test1
+    set test2
+    
+    `std::cout << c_add(test1, test2) << "\n";`
+    5 factorial
+    put
+
+    0 ret
+end
+```
+
 ### Types in Virna
 
 - `number`: 4 bytes number.
