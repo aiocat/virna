@@ -1,15 +1,9 @@
-import "../std/stack.vi"
-import "io.vi"
+import "../std/math.vi"
 
 # Program starts here: #
 in main
-    2 label test
-    "Hello World\n" puts
-    1 -
+    get factorial
+    put
 
-    dup 0 = if
-        0 ret
-    else
-        jump test
-    end
+    0 ret
 end

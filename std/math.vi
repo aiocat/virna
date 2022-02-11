@@ -14,26 +14,13 @@ in factorial inline
     
     dup
     dup
+    2 -
 
-    let temp
-    set temp
-
-    fetch temp 3 < if 
-        pop pop
-        fetch temp
-
-        0 ret
+    repeat
+        1 - swap __over * swap
     end
 
-    while
-        1 - fetch temp * set fetch temp 1 - dup
-        
-        dup 2 = if break end
-    end
-
-    pop pop
-    fetch temp
-
+    pop
     0 ret
 end
 
