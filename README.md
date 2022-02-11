@@ -79,6 +79,20 @@ in main
 end
 ```
 
+### Chars
+
+Characters are actually are not characters. They are converted to the number, so it's more like a syntax-sugar.
+
+```virna
+in main
+    'b' '+' 'a' putc putc putc
+    '\n' putc
+    0 ret
+end
+```
+
+`\n`, `\r`, `\t` and `\'` are supported.
+
 ### Strings
 
 ```virna
