@@ -344,6 +344,12 @@ void Transpiler::run()
                     for (int i = 0; i < transpiler.functions.size(); i++)
                         functions.push_back(transpiler.functions[i]);
                 }
+                else if (tokens[index - 1].key == Commands::CImport)
+                {
+                    if (std::find(includes.begin(), includes.end(), token.value) == includes.end())
+                        includes.push_back(token.value);
+                    break;
+                }
                 else
                 {
                     source += ("_string_stack.push(\"" + token.value + "\");");

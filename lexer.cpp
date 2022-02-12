@@ -73,7 +73,8 @@ enum Commands
     Syscall,
     Label,
     Jump,
-    CCode
+    CCode,
+    CImport
 };
 
 struct Token
@@ -214,13 +215,24 @@ void Lexer::run()
                 collectingChar = false;
                 collectedToken = "";
             }
-            else collectedToken += character;
-        } else {
-            if (character == '`' && raw[index - 1] != '\\') {
+            else
+                collectedToken += character;
+        }
+        else
+        {
+            if (character == '`' && raw[index - 1] != '\\')
+            {
                 tokens.push_back(Token{line, Commands::CCode, collectedToken});
                 collectedToken = "";
                 collectingC = false;
-            } else collectedToken += character;
+            }
+            else if (character == '`' && raw[index - 1] == '\\')
+            {
+                collectedToken.pop_back();
+                collectedToken += "`";
+            }
+            else
+                collectedToken += character;
         }
     }
 };
@@ -362,6 +374,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Gets, std::string()});
     else if (collectedToken == "import")
         tokens.push_back(Token{line, Commands::Import, std::string()});
+    else if (collectedToken == "cimport")
+        tokens.push_back(Token{line, Commands::CImport, std::string()});
     else if (collectedToken == "inline")
         tokens.push_back(Token{line, Commands::Inline, std::string()});
     else if (collectedToken == "readf")
