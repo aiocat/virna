@@ -286,6 +286,24 @@ in main
     0 ret
 end
 ```
+### CImport
+
+`cimport` is a keyword that allows to including c/c++ library to the virna easily.
+
+```virna
+cimport "stdio.h"
+
+in main
+    10
+
+    let temp
+    set temp
+
+    `printf("%d\n", temp+10);`
+    0 ret
+end
+```
+
 
 ### System
 
