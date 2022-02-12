@@ -12,7 +12,7 @@ in main
 
     set test1
     set test2
-    `std::cout << c_add(test1, test2) << "\`\n";`
+    `std::cout << c_add(test1, test2) << "\n";`
     5 factorial
     put
 

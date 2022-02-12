@@ -1,5 +1,3 @@
-**VIRNA IS STILL UNDER-DEVELOPMENT. PLEASE USE AT YOUR OWN RISK!**
-
 # Virna
 
 A programming language designed to be stack-based and concatenative with reverse polish notation.
@@ -27,20 +25,27 @@ Clone the repository and compile program:
 g++ virna.cpp -o virna
 ```
 
+Add the executable file to the PATH. and:
+
 - **Windows**:
   ```sh
-  .\vir.bat .\test\main g++
+  vir .\test\main g++
   ```
 - **\*nix**:
   ```sh
-  ./vir.sh ./test/main g++
+  vir ./test/main g++
   ```
 
 Second argument can be changed. Ex: if you want to use clang:
 
 ```sh
-./vir.sh ./test/main clang++
+vir ./test/main clang++
 ```
+
+## Docker
+- `cd virna`
+- `docker build -t "virna:Dockerfile" .`
+- `docker run --rm -i -t virna:Dockerfile`
 
 Virna => C++ => Executable
 
@@ -286,6 +291,7 @@ in main
     0 ret
 end
 ```
+
 ### CImport
 
 `cimport` is a keyword that allows to including c/c++ library to the virna easily.
@@ -303,7 +309,6 @@ in main
     0 ret
 end
 ```
-
 
 ### System
 
@@ -585,7 +590,7 @@ in main
 
     set test1
     set test2
-    
+
     `std::cout << c_add(test1, test2) << "\n";`
     5 factorial
     put

@@ -1,6 +1,0 @@
-in ask inline
-    "Enter a Number: " puts
-    get
-
-    0 ret
-end
