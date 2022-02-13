@@ -219,11 +219,16 @@ These commands will return `0` if it isn't, `1` if it is.
 
 ### Number Variables
 
-| Syntax | Description                                                        |
-| ------ | ------------------------------------------------------------------ |
-| let    | Create a new variable with default value. (0)                      |
-| set    | Change the variable value with number on top of the stack and pop. |
-| fetch  | Fetches the variable and pushes to the top of the number stack.    |
+| Syntax | Description                                                                             |
+| ------ | --------------------------------------------------------------------------------------- |
+| let    | Create a new variable with default value. (0)                                           |
+| letu   | Create a new unsigned number variable with default value. (0)                           |
+| let64  | Create a new 64-bit number variable with default value. (0)                             |
+| letu64 | Create a new 64-bit unsigned number variable with default value. (0)                    |
+| letm   | Create a new maximum int type variable with default value. (0)                          |
+| letum  | Create a new unsigned maximum int type unsigned number variable with default value. (0) |
+| set    | Change the variable value with number on top of the stack and pop.                      |
+| fetch  | Fetches the variable and pushes to the top of the number stack.                         |
 
 Example:
 
