@@ -2,7 +2,7 @@ in __over inline
     # a b => a b a #
     # added because prevent infinite import loop #
 
-    let temp
+    letm temp
     set temp dup fetch temp swap
 
     0 ret

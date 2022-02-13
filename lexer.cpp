@@ -75,7 +75,12 @@ enum Commands
     Jump,
     CCode,
     CImport,
-    Defer
+    Defer,
+    LetU,
+    Let64,
+    LetU64,
+    LetM,
+    LetUM
 };
 
 struct Token
@@ -283,6 +288,16 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Set, std::string()});
     else if (collectedToken == "let")
         tokens.push_back(Token{line, Commands::Let, std::string()});
+    else if (collectedToken == "letu")
+        tokens.push_back(Token{line, Commands::LetU, std::string()});
+    else if (collectedToken == "letm")
+        tokens.push_back(Token{line, Commands::LetM, std::string()});
+    else if (collectedToken == "letum")
+        tokens.push_back(Token{line, Commands::LetUM, std::string()});
+    else if (collectedToken == "let64")
+        tokens.push_back(Token{line, Commands::Let64, std::string()});
+    else if (collectedToken == "letu64")
+        tokens.push_back(Token{line, Commands::LetU64, std::string()});
     else if (collectedToken == "sets")
         tokens.push_back(Token{line, Commands::Sets, std::string()});
     else if (collectedToken == "lets")

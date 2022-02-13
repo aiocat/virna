@@ -34,8 +34,9 @@ void Transpiler::run()
         includes.push_back("stack");
         includes.push_back("fstream");
         includes.push_back("memory");
+        includes.push_back("stdint.h");
 
-        source = "std::stack<int> _stack;int _temp_one, _temp_two, _temp_three;std::stack<std::string> _string_stack;std::string _string_temp_one, _string_temp_two;std::ifstream _text_file;std::ofstream _otext_file;\nusing defer=std::shared_ptr<void>;";
+        source = "std::stack<intmax_t> _stack;intmax_t _temp_one, _temp_two, _temp_three;std::stack<std::string> _string_stack;std::string _string_temp_one, _string_temp_two;std::ifstream _text_file;std::ofstream _otext_file;\nusing defer=std::shared_ptr<void>;";
     }
 
     for (int index = 0; index < tokens.size(); index++)
@@ -294,6 +295,21 @@ void Transpiler::run()
                     break;
                 case Commands::Let:
                     source += ("int " + token.value + "=0;");
+                    break;
+                case Commands::LetU:
+                    source += ("unsigned int " + token.value + "=0;");
+                    break;
+                case Commands::LetM:
+                    source += ("intmax_t " + token.value + "=0;");
+                    break;
+                case Commands::LetUM:
+                    source += ("uintmax_t " + token.value + "=0;");
+                    break;
+                case Commands::Let64:
+                    source += ("long long int " + token.value + "=0;");
+                    break;
+                case Commands::LetU64:
+                    source += ("unsigned long long int " + token.value + "=0;");
                     break;
                 case Commands::Fetch:
                     source += ("_stack.push(" + token.value + ");");

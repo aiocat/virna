@@ -1,8 +1,8 @@
 in split inline
-    let temp
+    letm temp
     set temp
 
-    let count
+    letm count
 
     revs trns
 

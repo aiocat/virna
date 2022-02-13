@@ -2,12 +2,7 @@ import "../std/math.vi"
 
 # Program starts here: #
 in main
-    defer
-        '\n' putc
-        "This block runs after program\n" puts
-    defer
-
-    5 factorial
+    20 factorial
     put
 
     0 ret
