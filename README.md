@@ -20,8 +20,8 @@ The compiler is built with C++. Also you can use **vir** for better experience.
       "Hello, World\n" puts
   end
   ```
-- [**Brainfuck Compiler**](https://gitlab.com/aiocat/virna/-/blob/main/example/brainfuck/brainfuck.vi)
-- [**Shell**](https://gitlab.com/aiocat/virna/-/blob/main/example/vish/vish.vi)
+- [**Brainfuck Compiler**](https://github.com/aiocat/virna/tree/main/example/brainfuck)
+- [**Shell**](https://github.com/aiocat/virna/tree/main/example/vish)
 
 ## Usage
 
@@ -531,7 +531,7 @@ end
 
 Virna allows to access tokens in program.
 
-- [Token Enum](https://gitlab.com/aiocat/virna/-/blob/main/lexer.cpp#L5)
+- [Token Enum](https://github.com/aiocat/virna/blob/main/lexer.cpp#L7)
 
 ```virna
 in main
@@ -614,4 +614,4 @@ end
 
 Virna is distributed under MIT license. for more information:
 
-- https://gitlab.com/aiocat/virna/-/blob/main/LICENSE
+- https://raw.githubusercontent.com/aiocat/virna/main/LICENSE
