@@ -79,6 +79,12 @@ enum Commands
     LetU,
     Let64,
     LetU64,
+    Let32,
+    LetU32,
+    Let16,
+    LetU16,
+    Let8,
+    LetU8,
     LetM,
     LetUM
 };
@@ -298,6 +304,18 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Let64, std::string()});
     else if (collectedToken == "letu64")
         tokens.push_back(Token{line, Commands::LetU64, std::string()});
+    else if (collectedToken == "let32")
+        tokens.push_back(Token{line, Commands::Let32, std::string()});
+    else if (collectedToken == "letu32")
+        tokens.push_back(Token{line, Commands::LetU32, std::string()});
+    else if (collectedToken == "let16")
+        tokens.push_back(Token{line, Commands::Let16, std::string()});
+    else if (collectedToken == "letu16")
+        tokens.push_back(Token{line, Commands::LetU16, std::string()});
+    else if (collectedToken == "let8")
+        tokens.push_back(Token{line, Commands::Let8, std::string()});
+    else if (collectedToken == "letu8")
+        tokens.push_back(Token{line, Commands::LetU8, std::string()});
     else if (collectedToken == "sets")
         tokens.push_back(Token{line, Commands::Sets, std::string()});
     else if (collectedToken == "lets")

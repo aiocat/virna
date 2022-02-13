@@ -306,10 +306,28 @@ void Transpiler::run()
                     source += ("uintmax_t " + token.value + "=0;");
                     break;
                 case Commands::Let64:
-                    source += ("long long int " + token.value + "=0;");
+                    source += ("int64_t " + token.value + "=0;");
                     break;
                 case Commands::LetU64:
-                    source += ("unsigned long long int " + token.value + "=0;");
+                    source += ("uint64_t " + token.value + "=0;");
+                    break;
+                case Commands::Let32:
+                    source += ("int23_t " + token.value + "=0;");
+                    break;
+                case Commands::LetU32:
+                    source += ("uint23_t " + token.value + "=0;");
+                    break;
+                case Commands::Let16:
+                    source += ("int16_t " + token.value + "=0;");
+                    break;
+                case Commands::LetU16:
+                    source += ("uint16_t " + token.value + "=0;");
+                    break;
+                case Commands::Let8:
+                    source += ("int8_t " + token.value + "=0;");
+                    break;
+                case Commands::LetU8:
+                    source += ("uint16_t " + token.value + "=0;");
                     break;
                 case Commands::Fetch:
                     source += ("_stack.push(" + token.value + ");");
