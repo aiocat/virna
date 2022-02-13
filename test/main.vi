@@ -5,7 +5,7 @@ in main
     defer
         '\n' putc
         "This block runs after program\n" puts
-    refed
+    defer
 
     5 factorial
     put

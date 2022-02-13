@@ -75,8 +75,7 @@ enum Commands
     Jump,
     CCode,
     CImport,
-    Defer,
-    Refed
+    Defer
 };
 
 struct Token
@@ -402,8 +401,6 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Jump, std::string()});
     else if (collectedToken == "defer")
         tokens.push_back(Token{line, Commands::Defer, std::string()});
-    else if (collectedToken == "refed")
-        tokens.push_back(Token{line, Commands::Refed, std::string()});
     else if (collectedToken == "+")
         tokens.push_back(Token{line, Commands::Add, std::string()});
     else if (collectedToken == "++")

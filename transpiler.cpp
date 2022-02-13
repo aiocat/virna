@@ -14,7 +14,7 @@ public:
     bool allowInclude;
     bool quoteRuns;
     bool syscallRuns;
-    int deferReferenceCount;
+    bool inDefer;
     std::vector<Token> tokens;
     std::string source;
     std::vector<std::string> includes;
@@ -25,8 +25,7 @@ public:
 
 void Transpiler::run()
 {
-    quoteRuns, syscallRuns = false, false;
-    deferReferenceCount = 0;
+    quoteRuns, syscallRuns, inDefer = false, false, false;
     std::string syscallArgs = std::string();
 
     if (allowInclude)
@@ -62,16 +61,12 @@ void Transpiler::run()
                 source += ("_stack.push(" + token.value + ");");
                 break;
             case Commands::Defer:
-                source += ("defer _temp_defer(nullptr, [](...){");
-                deferReferenceCount++;
-                break;
-            case Commands::Refed:
-                if (deferReferenceCount == 0) {
-                    std::cerr << "[L" << token.line << "]: Cant call refed, no defer found\n";
-                    exit(1);
-                }
-                source += ("});");
-                deferReferenceCount--;
+                if (!inDefer)
+                    source += ("defer _temp_defer(nullptr, [](...){");
+                else
+                    source += ("});");
+
+                inDefer = !inDefer;
                 break;
             case Commands::Add:
                 source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two+_temp_one);";

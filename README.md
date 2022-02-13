@@ -609,7 +609,7 @@ end
 
 ### Defers
 
-Defer statement defers the execution of a function until the surrounding function returns.
+Defer statement defers the execution of a function until the surrounding function returns. Only one defer can be used in a block. for example:
 
 ```virna
 import "../std/math.vi"
@@ -619,7 +619,7 @@ in main
     defer
         '\n' putc
         "This block runs after program\n" puts
-    refed
+    defer
 
     5 factorial
     put
@@ -627,6 +627,30 @@ in main
     0 ret
 end
 ```
+
+this is a valid usage for defer. but this:
+
+```virna
+import "../std/math.vi"
+
+# Program starts here: #
+in main
+    defer
+        '\n' putc
+    defer
+
+    defer
+        "This block runs after program\n" puts
+    defer
+
+    5 factorial
+    put
+
+    0 ret
+end
+```
+
+will cause an error inside c++ file.
 
 ### Inline-C++
 
