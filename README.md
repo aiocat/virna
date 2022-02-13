@@ -225,6 +225,12 @@ These commands will return `0` if it isn't, `1` if it is.
 | letu   | Create a new unsigned number variable with default value. (0)                           |
 | let64  | Create a new 64-bit number variable with default value. (0)                             |
 | letu64 | Create a new 64-bit unsigned number variable with default value. (0)                    |
+| let32  | Create a new 32-bit number variable with default value. (0)                             |
+| letu32 | Create a new 32-bit unsigned number variable with default value. (0)                    |
+| let16  | Create a new 16-bit number variable with default value. (0)                             |
+| letu16 | Create a new 16-bit unsigned number variable with default value. (0)                    |
+| let8  | Create a new 8-bit number variable with default value. (0)                             |
+| letu8 | Create a new 8-bit unsigned number variable with default value. (0)                    |
 | letm   | Create a new maximum int type variable with default value. (0)                          |
 | letum  | Create a new unsigned maximum int type unsigned number variable with default value. (0) |
 | set    | Change the variable value with number on top of the stack and pop.                      |
