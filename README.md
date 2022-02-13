@@ -1,3 +1,9 @@
+<div align="center">
+
+![!](/assets/virna.png)
+
+</div>
+
 # Virna
 
 A programming language designed to be stack-based and concatenative with reverse polish notation.
