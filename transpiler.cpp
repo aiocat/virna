@@ -14,6 +14,7 @@ public:
     bool allowInclude;
     bool quoteRuns;
     bool syscallRuns;
+    int deferReferenceCount;
     std::vector<Token> tokens;
     std::string source;
     std::vector<std::string> includes;
@@ -24,8 +25,8 @@ public:
 
 void Transpiler::run()
 {
-    quoteRuns = false;
-    syscallRuns = false;
+    quoteRuns, syscallRuns = false, false;
+    deferReferenceCount = 0;
     std::string syscallArgs = std::string();
 
     if (allowInclude)
@@ -33,8 +34,9 @@ void Transpiler::run()
         includes.push_back("iostream");
         includes.push_back("stack");
         includes.push_back("fstream");
+        includes.push_back("memory");
 
-        source = "std::stack<int> _stack;int _temp_one, _temp_two, _temp_three;std::stack<std::string> _string_stack;std::string _string_temp_one, _string_temp_two;std::ifstream _text_file;std::ofstream _otext_file;";
+        source = "std::stack<int> _stack;int _temp_one, _temp_two, _temp_three;std::stack<std::string> _string_stack;std::string _string_temp_one, _string_temp_two;std::ifstream _text_file;std::ofstream _otext_file;\nusing defer=std::shared_ptr<void>;";
     }
 
     for (int index = 0; index < tokens.size(); index++)
@@ -58,6 +60,18 @@ void Transpiler::run()
                 break;
             case Commands::Number:
                 source += ("_stack.push(" + token.value + ");");
+                break;
+            case Commands::Defer:
+                source += ("defer _temp_defer(nullptr, [](...){");
+                deferReferenceCount++;
+                break;
+            case Commands::Refed:
+                if (deferReferenceCount == 0) {
+                    std::cerr << "[L" << token.line << "]: Cant call refed, no defer found\n";
+                    exit(1);
+                }
+                source += ("});");
+                deferReferenceCount--;
                 break;
             case Commands::Add:
                 source += "_temp_one=_stack.top();_stack.pop();_temp_two=_stack.top();_stack.pop();_stack.push(_temp_two+_temp_one);";

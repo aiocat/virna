@@ -66,6 +66,7 @@ Virna currently have 2 different stack. First one is for numbers, and the other 
 
 - [Numbers](https://github.com/aiocat/virna#numbers)
 - [Chars](https://github.com/aiocat/virna#chars)
+- [Strings](https://github.com/aiocat/virna#strings)
 - [Arithmetic Operations](https://github.com/aiocat/virna#arithmetic-operations)
 - [Bitwise Operations](https://github.com/aiocat/virna#bitwise-operations)
 - [Stack Manipulation](https://github.com/aiocat/virna#stack-manipulation)
@@ -86,6 +87,7 @@ Virna currently have 2 different stack. First one is for numbers, and the other 
   - [Forever Loop](https://github.com/aiocat/virna#forever-loop)
 - [Meta Programming](https://github.com/aiocat/virna#meta-programming)
 - [Labels](https://github.com/aiocat/virna#labels)
+- [Defers](https://github.com/aiocat/virna#defers)
 - [Inline C++](https://github.com/aiocat/virna#inline-c)
 - [Types](https://github.com/aiocat/virna#types-in-virna)
 
@@ -602,6 +604,27 @@ in main
         # Jump to label #
         jump test
     end
+end
+```
+
+### Defers
+
+Defer statement defers the execution of a function until the surrounding function returns.
+
+```virna
+import "../std/math.vi"
+
+# Program starts here: #
+in main
+    defer
+        '\n' putc
+        "This block runs after program\n" puts
+    refed
+
+    5 factorial
+    put
+
+    0 ret
 end
 ```
 

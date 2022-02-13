@@ -1,18 +1,12 @@
 import "../std/math.vi"
 
-`int c_add(int a, int b) {
-    return a + b;
-}`
-
 # Program starts here: #
 in main
-    5 10
-    let test1
-    let test2
+    defer
+        '\n' putc
+        "This block runs after program\n" puts
+    refed
 
-    set test1
-    set test2
-    `std::cout << c_add(test1, test2) << "\n";`
     5 factorial
     put
 
