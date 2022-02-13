@@ -49,6 +49,7 @@ vir ./test/main clang++
 ```
 
 ## Docker
+
 - `cd virna`
 - `docker build -t "virna:Dockerfile" .`
 - `docker run --rm -i -t virna:Dockerfile`
@@ -60,6 +61,33 @@ Virna => C++ => Executable
 Virna currently have 2 different stack. First one is for numbers, and the other is for strings.
 
 ## Language Reference
+
+### Index
+
+- [Numbers](https://github.com/aiocat/virna#numbers)
+- [Chars](https://github.com/aiocat/virna#chars)
+- [Arithmetic Operations](https://github.com/aiocat/virna#arithmetic-operations)
+- [Bitwise Operations](https://github.com/aiocat/virna#bitwise-operations)
+- [Stack Manipulation](https://github.com/aiocat/virna#stack-manipulation)
+- [Comparison](https://github.com/aiocat/virna#comparison)
+- [Number Variables](https://github.com/aiocat/virna#number-variables)
+- [String Variables](https://github.com/aiocat/virna#string-variables)
+- [Functions](https://github.com/aiocat/virna#functions)
+- [Inline Functions](https://github.com/aiocat/virna#inline-functions)
+- [Import](https://github.com/aiocat/virna#import)
+- [CImport](https://github.com/aiocat/virna#cimport)
+- [System](https://github.com/aiocat/virna#system)
+  - [Syscall](https://github.com/aiocat/virna#syscall)
+- [Control Flow](https://github.com/aiocat/virna#control-flow)
+  - [If Else](https://github.com/aiocat/virna#if-else)
+  - [Try Catch Err](https://github.com/aiocat/virna#try-catch-err)
+  - [While Loop](https://github.com/aiocat/virna#while-loop)
+  - [Repeat Loop](https://github.com/aiocat/virna#repeat-loop)
+  - [Forever Loop](https://github.com/aiocat/virna#forever-loop)
+- [Meta Programming](https://github.com/aiocat/virna#meta-programming)
+- [Labels](https://github.com/aiocat/virna#labels)
+- [Inline C++](https://github.com/aiocat/virna#inline-c)
+- [Types](https://github.com/aiocat/virna#types-in-virna)
 
 ### Numbers
 
