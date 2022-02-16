@@ -88,7 +88,7 @@ enum Commands
     LetM,
     LetUM,
     Iters,
-    Spec,
+    Spec
 };
 
 struct Token

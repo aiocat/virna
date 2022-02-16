@@ -67,6 +67,7 @@ Virna currently have 2 different stack. First one is for numbers, and the other 
 - [Numbers](https://github.com/aiocat/virna#numbers)
 - [Chars](https://github.com/aiocat/virna#chars)
 - [Strings](https://github.com/aiocat/virna#strings)
+- [Comments](https://github.com/aiocat/virna#comments)
 - [Arithmetic Operations](https://github.com/aiocat/virna#arithmetic-operations)
 - [Bitwise Operations](https://github.com/aiocat/virna#bitwise-operations)
 - [Stack Manipulation](https://github.com/aiocat/virna#stack-manipulation)
@@ -74,6 +75,7 @@ Virna currently have 2 different stack. First one is for numbers, and the other 
 - [Number Variables](https://github.com/aiocat/virna#number-variables)
 - [String Variables](https://github.com/aiocat/virna#string-variables)
 - [Functions](https://github.com/aiocat/virna#functions)
+- [Specs](https://github.com/aiocat/virna#specs)
 - [Inline Functions](https://github.com/aiocat/virna#inline-functions)
 - [Import](https://github.com/aiocat/virna#import)
 - [CImport](https://github.com/aiocat/virna#cimport)
@@ -85,6 +87,7 @@ Virna currently have 2 different stack. First one is for numbers, and the other 
   - [While Loop](https://github.com/aiocat/virna#while-loop)
   - [Repeat Loop](https://github.com/aiocat/virna#repeat-loop)
   - [Forever Loop](https://github.com/aiocat/virna#forever-loop)
+  - [Iters](https://github.com/aiocat/virna#iters)
 - [Meta Programming](https://github.com/aiocat/virna#meta-programming)
 - [Labels](https://github.com/aiocat/virna#labels)
 - [Defers](https://github.com/aiocat/virna#defers)
@@ -153,6 +156,12 @@ Program Start  []
 ```
 
 String escapes are same with C++.
+
+### Comments
+
+- Comments are not effect the code, they are just blank texts to make code more readable.
+- You can create a comment with `#` (hashtag) and close it with `#` again.
+- Comments are multi-line, it continues until you close the comment.
 
 ### Arithmetic Operations
 
@@ -303,6 +312,43 @@ end
 ```
 
 This program writes `25` to the console output.
+
+### Specs
+
+To specify the function before adding, use `spec` block. For example:
+
+```virna
+# Specify the functions: #
+spec
+    sqrt
+    cbrt
+spec
+
+# Program starts here: #
+in main
+    # Using without adding: #
+    2 sqrt
+    put
+
+    '\n' putc
+
+    2 cbrt
+    put
+
+    0 ret
+end
+
+# Adding functions: #
+in sqrt
+    dup *
+    0 ret
+end
+
+in cbrt
+    dup dup * *
+    0 ret
+end
+```
 
 ### Inline Functions
 
