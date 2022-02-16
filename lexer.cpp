@@ -183,7 +183,7 @@ void Lexer::run()
             if (index + 1 == raw.length())
                 determine();
         }
-        else if (collectingString && !collectingChar && !collectingC)
+        else if (collectingString && !inComment && !collectingChar && !collectingC)
         {
             if (character == '"' && raw[index - 1] != '\\')
             {
@@ -196,14 +196,14 @@ void Lexer::run()
                 collectedToken += character;
             }
         }
-        else if (inComment && !collectingChar && !collectingC)
+        else if (!collectingString && inComment && !collectingChar && !collectingC)
         {
             if (character == '#')
             {
                 inComment = false;
             }
         }
-        else if (collectingChar && !collectingC)
+        else if (!collectingString && !inComment && collectingChar && !collectingC)
         {
             if (character == '\'' && raw[index - 1] != '\\')
             {

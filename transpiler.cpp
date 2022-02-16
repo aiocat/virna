@@ -432,7 +432,7 @@ void Transpiler::run()
 
             source += ("_stack.push(" + std::to_string(token.key) + ");_string_stack.push(\"" + token.value + "\");");
         }
-        else if (syscallRuns && !specRuns)
+        else if (!quoteRuns && syscallRuns && !specRuns)
         {
             switch (token.key)
             {
