@@ -87,7 +87,8 @@ enum Commands
     LetU8,
     LetM,
     LetUM,
-    Iters
+    Iters,
+    Spec,
 };
 
 struct Token
@@ -327,6 +328,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Puts, std::string()});
     else if (collectedToken == "forever")
         tokens.push_back(Token{line, Commands::Forever, std::string()});
+    else if (collectedToken == "spec")
+        tokens.push_back(Token{line, Commands::Spec, std::string()});
     else if (collectedToken == "if")
         tokens.push_back(Token{line, Commands::If, std::string()});
     else if (collectedToken == "else")

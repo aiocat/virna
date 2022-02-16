@@ -1,8 +1,26 @@
-# Program starts here: #
-in main
-    "test" iters
-        putc
-    end
+spec
+    sqrt
+    cbrt
+spec
 
+in main
+    2 sqrt
+    put
+
+    '\n' putc
+
+    2 cbrt
+    put
+
+    0 ret
+end
+
+in sqrt
+    dup *
+    0 ret
+end
+
+in cbrt 
+    dup dup * *
     0 ret
 end

@@ -14,18 +14,20 @@ public:
     bool allowInclude;
     bool quoteRuns;
     bool syscallRuns;
+    bool specRuns;
     bool inDefer;
     std::vector<Token> tokens;
     std::string source;
     std::vector<std::string> includes;
     std::vector<std::string> functions;
+    std::vector<std::string> specs;
 
     void run();
 };
 
 void Transpiler::run()
 {
-    quoteRuns, syscallRuns, inDefer = false, false, false;
+    quoteRuns, syscallRuns, inDefer, specRuns = false, false, false, false;
     std::string syscallArgs = std::string();
 
     if (allowInclude)
@@ -43,7 +45,7 @@ void Transpiler::run()
     {
         Token token = tokens[index];
 
-        if (!quoteRuns && !syscallRuns)
+        if (!quoteRuns && !syscallRuns && !specRuns)
         {
             switch (token.key)
             {
@@ -57,6 +59,9 @@ void Transpiler::run()
                 break;
             case Commands::CCode:
                 source += token.value;
+                break;
+            case Commands::Spec:
+                specRuns = true;
                 break;
             case Commands::Number:
                 source += ("_stack.push(" + token.value + ");");
@@ -277,7 +282,16 @@ void Transpiler::run()
                     else
                         source += ("int " + token.value + "(){");
 
+                    for (int i = 0; i < specs.size(); i++)
+                        if (specs[i] == token.value)
+                            specs.erase(specs.begin() + i);
+
                     functions.push_back(token.value);
+                    break;
+                }
+                else if (std::find(specs.begin(), specs.end(), token.value) != specs.end())
+                {
+                    source += ("_temp_one=" + token.value + "();if(_temp_one!=0)return _temp_one;");
                     break;
                 }
                 else if (tokens[index - 1].key == Commands::Label)
@@ -389,6 +403,9 @@ void Transpiler::run()
 
                     for (int i = 0; i < transpiler.functions.size(); i++)
                         functions.push_back(transpiler.functions[i]);
+
+                    for (int i = 0; i < transpiler.specs.size(); i++)
+                        specs.push_back(transpiler.specs[i]);
                 }
                 else if (tokens[index - 1].key == Commands::CImport)
                 {
@@ -405,7 +422,7 @@ void Transpiler::run()
                 break;
             }
         }
-        else if (quoteRuns && !syscallRuns)
+        else if (quoteRuns && !syscallRuns && !specRuns)
         {
             if (token.key == Commands::Quote)
             {
@@ -415,7 +432,7 @@ void Transpiler::run()
 
             source += ("_stack.push(" + std::to_string(token.key) + ");_string_stack.push(\"" + token.value + "\");");
         }
-        else
+        else if (syscallRuns && !specRuns)
         {
             switch (token.key)
             {
@@ -460,6 +477,26 @@ void Transpiler::run()
                     exit(1);
                 }
 
+                break;
+            }
+        }
+        else
+        {
+            switch (token.key)
+            {
+            case Commands::Spec:
+                specRuns = false;
+
+                for (int i = 0; i < specs.size(); i++)
+                    source += ("int " + specs[i] + "();\n");
+
+                break;
+            case Commands::Unknown:
+                specs.push_back(token.value);
+                break;
+            default:
+                std::cerr << "[L" << token.line << "]: Not a valid spec parameter\n";
+                exit(1);
                 break;
             }
         }
