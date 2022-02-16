@@ -229,8 +229,8 @@ These commands will return `0` if it isn't, `1` if it is.
 | letu32 | Create a new 32-bit unsigned number variable with default value. (0)                    |
 | let16  | Create a new 16-bit number variable with default value. (0)                             |
 | letu16 | Create a new 16-bit unsigned number variable with default value. (0)                    |
-| let8  | Create a new 8-bit number variable with default value. (0)                             |
-| letu8 | Create a new 8-bit unsigned number variable with default value. (0)                    |
+| let8   | Create a new 8-bit number variable with default value. (0)                              |
+| letu8  | Create a new 8-bit unsigned number variable with default value. (0)                     |
 | letm   | Create a new maximum int type variable with default value. (0)                          |
 | letum  | Create a new unsigned maximum int type unsigned number variable with default value. (0) |
 | set    | Change the variable value with number on top of the stack and pop.                      |
@@ -543,7 +543,7 @@ end
 
 #### Repeat Loop
 
-`repeat` keyword fetches the number on the top of the stack and repeats the code.
+`repeat` keyword fetches the number on the top of the stack and repeats the code. \[**Breakable**\] \[**Continuable**\]
 
 ```virna
 in main
@@ -557,7 +557,7 @@ this program prints `A` 5 times.
 
 #### Forever Loop
 
-I don't think i need to describe this. Continues until forever...
+I don't think i need to describe this. Continues until forever... \[**Breakable**\] \[**Continuable**\]
 
 ```virna
 in main
@@ -567,6 +567,22 @@ in main
     end
 end
 ```
+
+#### Iters
+
+Iterates over string from last to first character and pushes to the number stack. \[**Breakable**\] \[**Continuable**\]
+
+```virna
+in main
+    "test" iters
+        putc
+    end
+
+    0 ret
+end
+```
+
+This program outputs: `tset`.
 
 ### Meta Programming
 
