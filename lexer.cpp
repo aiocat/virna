@@ -86,7 +86,8 @@ enum Commands
     Let8,
     LetU8,
     LetM,
-    LetUM
+    LetUM,
+    Iters
 };
 
 struct Token
@@ -350,6 +351,8 @@ void Lexer::determine()
         tokens.push_back(Token{line, Commands::Quote, std::string()});
     else if (collectedToken == "sleep")
         tokens.push_back(Token{line, Commands::Sleep, std::string()});
+    else if (collectedToken == "iters")
+        tokens.push_back(Token{line, Commands::Iters, std::string()});
     else if (collectedToken == "try")
         tokens.push_back(Token{line, Commands::Try, std::string()});
     else if (collectedToken == "catch")

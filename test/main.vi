@@ -2,15 +2,9 @@ import "../std/math.vi"
 
 # Program starts here: #
 in main
-    20 factorial
-    put
-
-    '\n' putc
-    letu8 red
-    250 set red
-
-    fetch red put
-    '\n' putc
+    "test" iters
+        putc
+    end
 
     0 ret
 end

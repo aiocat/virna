@@ -150,6 +150,9 @@ void Transpiler::run()
             case Commands::Pop:
                 source += "_stack.pop();";
                 break;
+            case Commands::Iters:
+                source += "_temp_one=_string_stack.top().length();for(int _vf=_temp_one-1;_vf>=0;_vf--){_string_temp_one=_string_stack.top();_string_stack.pop();_stack.push((int)_string_temp_one[_vf]);_string_temp_one.pop_back();_string_stack.push(_string_temp_one);";
+                break;
             case Commands::Neg:
                 source += "_temp_one=_stack.top();_stack.pop();_stack.push(-_temp_one);";
                 break;
@@ -196,7 +199,7 @@ void Transpiler::run()
                 source += "std::cin>>_temp_one;_stack.push(_temp_one);";
                 break;
             case Commands::Gets:
-                source += "std::getline(std::cin, _string_temp_one);_string_stack.push(_string_temp_one);";
+                source += "std::getline(std::cin,_string_temp_one);_string_stack.push(_string_temp_one);";
                 break;
             case Commands::Getch:
                 if (std::find(includes.begin(), includes.end(), "conio.h") == includes.end())
